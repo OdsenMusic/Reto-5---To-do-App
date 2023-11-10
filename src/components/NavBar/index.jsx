@@ -3,8 +3,34 @@ import NavBarGroup from "../NavBarGroup";
 import NavBarMenuCard from "../NavBarMenuCard";
 import Logo from "../logo";
 import React from "react";
+import { useState } from "react";
 
 export default function NavBar({}) {
+  const [groupList, setGroupList] = useState([]);
+
+  function groupObject() {
+    this.id = Date.now();
+    this.name = "";
+    this.color = "white";
+  }
+
+  function addNewGroup(prev) {
+    setGroupList((prev) => {
+      return [...prev, new groupObject()];
+    });
+
+    console.log(groupList);
+  }
+
+  function saveGroup(groupName, groupId) {
+    console.log(groupName);
+
+    let exactGroup = groupList.find((group) => group.id === groupId);
+    exactGroup.name = groupName;
+
+    console.log(exactGroup);
+  }
+
   return (
     <nav>
       <Logo />
@@ -24,11 +50,15 @@ export default function NavBar({}) {
         />
       </ul>
 
-      <div class="groups">
-        <NavBarGroup text="Estudios" />
-        <NavBarGroup text="Comdpra" />
+      <div className="groups">
+        {groupList.map((e) => {
+          return <NavBarGroup onChange={saveGroup} id={e.id} key={e.id} />;
+        })}
       </div>
-      <AddGroupButton />
+      <button onClick={addNewGroup} className="add-group">
+        <img src="/icons/plus-circle-svgrepo-com.svg" alt="" />
+        Crear grupo
+      </button>
     </nav>
   );
 }

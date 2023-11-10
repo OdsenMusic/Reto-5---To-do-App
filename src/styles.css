@@ -110,7 +110,7 @@ main {
   justify-content: center;
 }
 
-textarea {
+article {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -156,6 +156,13 @@ img.add-task {
   width: 40px;
 }
 
+textarea {
+  resize: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
 /* -----------------------------HOVERS------------------------- */
 
 section:hover {
@@ -163,7 +170,7 @@ section:hover {
   border-radius: 0;
   background-color: rgb(255, 234, 199);
 }
-textarea:hover {
+article:hover {
   backdrop-filter: blur(50);
   border: 2px solid rgba(168, 180, 255, 0.945);
 }

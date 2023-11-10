@@ -7,29 +7,29 @@ import "./styles.css";
 const App = () => {
   const [taskList, setTaskList] = useState([]);
 
-  function taskObject(description) {
+  function taskObject() {
     this.id = Date.now();
-    this.description = description;
+    this.description = "";
+    this.group = "";
+    this.color = "white";
+    this.completed = false;
+    this.archived = false;
   }
 
   let clickHandlerAddTask = () => {
-    setTaskList((previo) => {
-      return [...previo, new taskObject("")];
+    setTaskList((prev) => {
+      return [...prev, new taskObject("")];
     });
-    console.log(
-      taskList.map((e) => {
-        return e.description;
-      })
-    );
   };
 
-  function saveTaskText(taskId, taskText) {
+  function saveTaskText(taskText, taskId) {
     console.log(taskText);
-    taskList.map((e) => {
-      if ((e.id = taskId)) {
-        e.description = taskText;
-      }
-    });
+    console.log(taskId);
+
+    let exactTask = taskList.find((task) => task.id === taskId);
+    exactTask.description = taskText;
+
+    console.log(exactTask);
   }
 
   return (
@@ -37,7 +37,7 @@ const App = () => {
       <NavBar />
       <main>
         {taskList.map((e) => {
-          return <Task onSave={saveTaskText} />;
+          return <Task id={e.id} key={e.id} onSave={saveTaskText} />;
         })}
         <button className="add-task" onClick={clickHandlerAddTask}>
           <img
