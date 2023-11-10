@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ColorSelector from "/src/components/ColorSelector";
 
 export default function Task({ onSave, id }) {
   const [taskText, setTaskText] = useState("");
@@ -12,8 +13,9 @@ export default function Task({ onSave, id }) {
 
   return (
     <article>
-      <input type="checkbox" />
+      <input className="task-checkbox" type="checkbox" />
       <textarea onChange={handleTaskText} />
+      <ColorSelector />
     </article>
   );
 }

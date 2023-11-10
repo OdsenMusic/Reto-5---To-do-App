@@ -1,0 +1,61 @@
+.colorSelectorContainer {
+  background-color: rgba(138, 138, 138, 0.221);
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px;
+  /* opacity: 0%; */
+  transition: opacity 0.3s;
+}
+
+.colorSelectorContainer:hover {
+  /* opacity: 100%; */
+}
+
+.taskColorSelector {
+  position: fixed;
+  top: calc(100% + 10px);
+}
+
+.color {
+  border: 2px solid transparent;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.092);
+  height: 15px;
+  aspect-ratio: 1/1;
+  border-radius: 20px;
+  background-color: rgb(119, 0, 255);
+}
+
+.color:hover {
+  border: 2px solid rgb(177, 177, 177);
+}
+
+.white {
+  background-color: white;
+}
+.red {
+  background-color: rgb(252, 136, 115);
+}
+.green {
+  background-color: rgb(157, 255, 157);
+}
+.yellow {
+  background-color: rgb(254, 254, 159);
+}
+.blue {
+  background-color: rgb(180, 217, 255);
+}
+
+.grey {
+  background-color: rgb(187, 187, 187);
+}
+
+.purple {
+  background-color: rgb(210, 155, 255);
+}
+
+.pink {
+  background-color: pink;
+}

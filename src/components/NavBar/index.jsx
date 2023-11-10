@@ -31,6 +31,11 @@ export default function NavBar({}) {
     console.log(exactGroup);
   }
 
+  function deleteGroup(value, groupId) {
+    let exactGroup = groupList.findIndex((group) => group.id === groupId);
+    setGroupList[groupList.splice(exactGroup, 1)];
+  }
+
   return (
     <nav>
       <Logo />
@@ -52,7 +57,14 @@ export default function NavBar({}) {
 
       <div className="groups">
         {groupList.map((e) => {
-          return <NavBarGroup onChange={saveGroup} id={e.id} key={e.id} />;
+          return (
+            <NavBarGroup
+              onChange={saveGroup}
+              id={e.id}
+              key={e.id}
+              onClick={deleteGroup}
+            />
+          );
         })}
       </div>
       <button onClick={addNewGroup} className="add-group">
