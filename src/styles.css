@@ -206,9 +206,9 @@ input[type="checkbox"]:checked {
 }
 
 .task-checkbox {
-  position: fixed;
-  left: -12%;
-  top: 25%;
+  position: relative;
+  left: -64%;
+  bottom: -8px;
 }
 /* -----------------------------HOVERS------------------------- */
 

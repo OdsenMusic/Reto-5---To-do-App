@@ -1,0 +1,22 @@
+.taskMenuContainer {
+  background-color: rgba(138, 138, 138, 0.221);
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 7px;
+  gap: 3px;
+  position: relative;
+  left: 80%;
+}
+
+.icon {
+  height: 17px;
+}
+
+button {
+  height: min-content;
+  width: min-content;
+  padding: 0;
+}

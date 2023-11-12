@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import ColorSelector from "../ColorSelector";
 
 export default function NavBarGroup({ onChange, onClick, id }) {
   const [groupName, setGroupName] = useState("");
@@ -20,6 +21,7 @@ export default function NavBarGroup({ onChange, onClick, id }) {
         <img src="src/assets/icons/cross-circle-svgrepo-com.svg" alt="" />
       </button>
       <input onChange={saveGroupName} type="text" value={groupName} />
+      <ColorSelector />
     </div>
   );
 }

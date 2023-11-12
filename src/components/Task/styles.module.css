@@ -1,0 +1,21 @@
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+  border-radius: 10px;
+  max-height: 150px;
+  min-width: 150px;
+  min-height: 50px;
+  border: 2px solid transparent;
+  overflow: visible;
+
+  padding: 20px;
+
+  background-color: rgba(24, 255, 20, 0.365);
+  backdrop-filter: blur(5px);
+  box-shadow: 4px 4px 30px 0px rgba(0, 0, 0, 0.167);
+  transition: 0.3s;
+}
