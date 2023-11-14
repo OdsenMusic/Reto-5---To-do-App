@@ -1,5 +1,5 @@
 import AddTaskButton from "./components/AddTaskButton";
-import Task from "src/components/Task/index.jsx";
+import Task from "./components/Task";
 import React, { useState } from "react";
 import NavBar from "./components/NavBar/index.jsx";
 import "./styles.css";

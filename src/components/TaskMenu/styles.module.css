@@ -4,19 +4,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
   padding: 7px;
   gap: 3px;
-  position: relative;
-  left: 80%;
+  position: absolute;
+  left: 33%;
+  bottom: 105%;
+  height: fit-content;
+  width: fit-content;
+  opacity: 0;
+  transition: opacity 0.3s;
+  transition-delay: 1s;
 }
 
 .icon {
-  height: 17px;
+  height: 14px;
 }
 
 button {
   height: min-content;
   width: min-content;
   padding: 0;
+}
+
+.taskMenuContainer:hover {
+  opacity: 100%;
+  transition-delay: 0s;
 }

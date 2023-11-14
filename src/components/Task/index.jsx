@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import ColorSelector from "/src/components/ColorSelector";
+import ColorSelector from "../ColorSelector";
 import TaskMenu from "../TaskMenu";
-import style from "src/components/Task/styles.module.css";
+import style from "./styles.module.css";
 
 export default function Task({ onSave, id }) {
   const [taskText, setTaskText] = useState("");
@@ -15,11 +15,13 @@ export default function Task({ onSave, id }) {
   };
 
   return (
-    <article>
-      <input className={style.task - checkbox} type="checkbox" />
-      <textarea onChange={handleTaskText} />
+    <div className={style.taskWrapper}>
       <ColorSelector />
       <TaskMenu />
-    </article>
+      <article>
+        <textarea onChange={handleTaskText} />
+      </article>
+      <input className={style.checkbox} type="checkbox" />
+    </div>
   );
 }

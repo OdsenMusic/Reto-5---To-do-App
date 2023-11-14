@@ -6,12 +6,22 @@
   justify-content: center;
   gap: 7px;
   padding: 7px;
-  /* opacity: 0%; */
+  height: fit-content;
+  width: fit-content;
+  opacity: 0%;
+  transition: 0.3s;
+  transition-delay: 1s;
 }
 
 .taskColorSelector {
-  position: relative;
-  top: 58px;
+  position: absolute;
+  bottom: -50%;
+  left: 15%;
+}
+
+.colorSelectorContainer:hover {
+  opacity: 100%;
+  transition-delay: 0s;
 }
 
 .color {

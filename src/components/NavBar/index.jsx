@@ -1,9 +1,10 @@
 import AddGroupButton from "../AddGroupButton";
 import NavBarGroup from "../NavBarGroup";
 import NavBarMenuCard from "../NavBarMenuCard";
-import Logo from "../logo";
+import Logo from "../Logo";
 import React from "react";
 import { useState } from "react";
+import style from "../NavBar/styles.module.css";
 
 export default function NavBar({}) {
   const [groupList, setGroupList] = useState([]);
@@ -37,7 +38,7 @@ export default function NavBar({}) {
   }
 
   return (
-    <nav>
+    <nav className={style}>
       <Logo />
       <ul>
         <NavBarMenuCard
@@ -55,7 +56,7 @@ export default function NavBar({}) {
         />
       </ul>
 
-      <div className="groups">
+      <div className={style.groups}>
         {groupList.map((e) => {
           return (
             <NavBarGroup
@@ -67,7 +68,7 @@ export default function NavBar({}) {
           );
         })}
       </div>
-      <button onClick={addNewGroup} className="add-group">
+      <button onClick={addNewGroup} className={style.addGroup}>
         <img src="/icons/plus-circle-svgrepo-com.svg" alt="" />
         Crear grupo
       </button>
