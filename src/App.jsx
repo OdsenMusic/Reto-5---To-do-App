@@ -33,7 +33,7 @@ const App = () => {
   }
 
   return (
-    <div className="viewport">
+    <div className="viewport triangular">
       <NavBar />
       <main>
         {taskList.map((e) => {

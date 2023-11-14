@@ -21,7 +21,14 @@ function TaskMenu() {
       <button>
         <img
           className={style.icon}
-          src="src/assets/icons/start-favorite-svgrepo-com.svg"
+          src="src/assets/icons/tag-2-svgrepo-com.svg"
+          alt=""
+        />
+      </button>
+      <button>
+        <img
+          className={style.icon}
+          src="src/assets/icons/brush-svgrepo-com.svg"
           alt=""
         />
       </button>

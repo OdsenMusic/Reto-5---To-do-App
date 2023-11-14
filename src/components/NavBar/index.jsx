@@ -46,8 +46,8 @@ export default function NavBar({}) {
           icon="src/assets/icons/clipboard-svgrepo-com (1).svg"
         />
         <NavBarMenuCard
-          text="Tareas Archivadas"
-          icon="src/assets/icons/align-bottom-svgrepo-com (1).svg"
+          text="Tareas finalizadas"
+          icon="src/assets/icons/checkmark-circle-svgrepo-com (1).svg"
         />
 
         <NavBarMenuCard

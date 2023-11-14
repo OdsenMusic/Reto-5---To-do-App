@@ -1,8 +1,14 @@
+:root {
+  --background-white: #f5f5f5;
+  --yellow: rgb(255, 244, 199);
+  --dark-yellow: rgb(214, 200, 147);
+}
+
 * {
   margin: 0;
   font-size: 0.95rem;
   font-family: "quicksand";
-  color: rgb(118, 118, 118);
+  color: rgb(68, 68, 68);
 }
 
 .viewport {
@@ -12,7 +18,80 @@
   display: flex;
 
   background-color: #f5f5f5;
+
   overflow: hidden;
+}
+
+.cubic {
+  background-color: #f3f3f3;
+  opacity: 0.8;
+  background-image: linear-gradient(
+      30deg,
+      #e5e5e5 12%,
+      transparent 12.5%,
+      transparent 87%,
+      #e5e5e5 87.5%,
+      #e5e5e5
+    ),
+    linear-gradient(
+      150deg,
+      #e5e5e5 12%,
+      transparent 12.5%,
+      transparent 87%,
+      #e5e5e5 87.5%,
+      #e5e5e5
+    ),
+    linear-gradient(
+      30deg,
+      #e5e5e5 12%,
+      transparent 12.5%,
+      transparent 87%,
+      #e5e5e5 87.5%,
+      #e5e5e5
+    ),
+    linear-gradient(
+      150deg,
+      #e5e5e5 12%,
+      transparent 12.5%,
+      transparent 87%,
+      #e5e5e5 87.5%,
+      #e5e5e5
+    ),
+    linear-gradient(
+      60deg,
+      #e5e5e577 25%,
+      transparent 25.5%,
+      transparent 75%,
+      #e5e5e577 75%,
+      #e5e5e577
+    ),
+    linear-gradient(
+      60deg,
+      #e5e5e577 25%,
+      transparent 25.5%,
+      transparent 75%,
+      #e5e5e577 75%,
+      #e5e5e577
+    );
+  background-size: 44px 77px;
+  background-position: 0 0, 0 0, 22px 39px, 22px 39px, 0 0, 22px 39px;
+}
+
+.triangular {
+  background-color: #f3f3f3;
+  opacity: 0.8;
+  background-image: linear-gradient(45deg, #e5e5e5 50%, #f3f3f3 50%);
+  background-size: 26px 26px;
+}
+
+.zigzag {
+  background-color: #f3f3f3;
+  opacity: 0.8;
+  background: linear-gradient(135deg, #e5e5e555 25%, transparent 25%) -22px 0/
+      44px 44px,
+    linear-gradient(225deg, #e5e5e5 25%, transparent 25%) -22px 0/ 44px 44px,
+    linear-gradient(315deg, #e5e5e555 25%, transparent 25%) 0px 0/ 44px 44px,
+    linear-gradient(45deg, #e5e5e5 25%, #f3f3f3 25%) 0px 0/ 44px 44px;
 }
 
 /* Tarjetas */
@@ -57,13 +136,3 @@ img.add-task {
 }
 
 /* -----------------------------HOVERS------------------------- */
-
-section:hover {
-  width: 100%;
-  border-radius: 0;
-  background-color: rgb(255, 234, 199);
-}
-article:hover {
-  backdrop-filter: blur(50);
-  border: 2px solid rgba(168, 180, 255, 0.945);
-}
