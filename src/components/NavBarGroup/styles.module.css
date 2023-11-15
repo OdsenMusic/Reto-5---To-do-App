@@ -1,28 +1,26 @@
 .groupFrame {
   position: relative;
-  width: 28%;
-  height: 25px;
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.107);
-
   display: flex;
   align-items: center;
   justify-content: center;
   align-self: center;
+  width: 28%;
+  height: 25px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
   border: 2px solid transparent;
+  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.107);
   transition: background-color 0.3s;
 }
 
 input[type="text"] {
-  width: 110px;
   display: flex;
+  width: 110px;
   border: 2px solid transparent;
-  outline: none;
-  text-align: center;
   background-color: transparent;
+  text-align: center;
+  outline: none;
 }
 
 .deleteGroupButton {
@@ -30,19 +28,16 @@ input[type="text"] {
   top: 2%;
   left: 2%;
   opacity: 0;
-  transition: 0.3s;
-  transition-delay: 0.2s;
+  transition: opacity 0.3s 0.2s;
 }
 
 img.deleteGroupImg {
   height: 13px;
 }
 
-div.groupFrame:hover > button.deleteGroupButton {
-  opacity: 100%;
+div.groupFrame:hover > .deleteGroupButton {
+  opacity: 1;
 }
-
-/* ----------------------------Colors------------------------------ */
 
 div.groupFrame.white {
   background-color: rgba(255, 255, 255, 0.785);
@@ -69,31 +64,31 @@ div.groupFrame.purple {
 }
 
 div.groupFrame.white:hover {
-  backdrop-filter: blur(50);
+  backdrop-filter: blur(50px);
   border: 2px solid rgba(230, 230, 230, 0.785);
 }
 
 div.groupFrame.green:hover {
-  backdrop-filter: blur(50);
+  backdrop-filter: blur(50px);
   border: 2px solid rgba(194, 232, 144, 0.785);
 }
 
 div.groupFrame.yellow:hover {
-  backdrop-filter: blur(50);
+  backdrop-filter: blur(50px);
   border: 2px solid var(--dark-yellow);
 }
 
 div.groupFrame.blue:hover {
-  backdrop-filter: blur(50);
+  backdrop-filter: blur(50px);
   border: 2px solid rgba(162, 188, 227, 0.785);
 }
 
 div.groupFrame.orange:hover {
-  backdrop-filter: blur(50);
+  backdrop-filter: blur(50px);
   border: 2px solid rgba(223, 184, 138, 0.785);
 }
 
 div.groupFrame.purple:hover {
-  backdrop-filter: blur(50);
+  backdrop-filter: blur(50px);
   border: 2px solid rgba(187, 164, 227, 0.785);
 }

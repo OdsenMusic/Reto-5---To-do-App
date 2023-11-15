@@ -41,13 +41,8 @@ const App = () => {
   };
 
   function saveTaskText(taskText, taskId) {
-    console.log(taskText);
-    console.log(taskId);
-
     let exactTask = taskList.find((task) => task.id === taskId);
     exactTask.description = taskText;
-
-    console.log(exactTask);
   }
 
   return (
@@ -64,7 +59,6 @@ const App = () => {
             alt=""
           />
         </button>
-
         <button className="personalize" onClick={clickHandlerPersonalize}>
           <img
             class="add-task"

@@ -3,7 +3,7 @@ import Checkbox from "../Checkbox";
 import ColorSelector from "../ColorSelector";
 import TaskMenu from "../TaskMenu";
 import style from "./styles.module.css";
-import { motion } from "framer-motion";
+import { motion, easeInOut } from "framer-motion";
 
 export default function Task({ onSave, id }) {
   const [taskText, setTaskText] = useState("");
@@ -19,7 +19,7 @@ export default function Task({ onSave, id }) {
     <motion.div
       initial={{ opacity: 0, scale: 0.5, translateX: 100 }}
       animate={{ opacity: 1, scale: 1, translateX: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.3, ease: [0.24, 0.46, 0.42, 1] }}
       layout
       className={style.taskWrapper}
     >
