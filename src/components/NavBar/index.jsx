@@ -2,7 +2,7 @@ import AddGroupButton from "../AddGroupButton";
 import NavBarGroup from "../NavBarGroup";
 import NavBarMenuCard from "../NavBarMenuCard";
 import Logo from "../Logo";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import style from "../NavBar/styles.module.css";
 
@@ -71,6 +71,9 @@ export default function NavBar({}) {
       <button onClick={addNewGroup} className={style.addGroup}>
         <img src="/icons/plus-circle-svgrepo-com.svg" alt="" />
         Crear grupo
+      </button>
+      <button className={style.addGroup}>
+        <img src="src/assets/icons/arrow-left-335-svgrepo-com.svg" alt="" />
       </button>
     </nav>
   );

@@ -24,8 +24,8 @@ export default function Task({ onSave, id }) {
       className={style.taskWrapper}
     >
       <ColorSelector />
-      <article>
-        <textarea onChange={handleTaskText} />
+      <article className={style.white}>
+        <textarea maxLength="40" onChange={handleTaskText} />
         <TaskMenu />
       </article>
       <Checkbox />

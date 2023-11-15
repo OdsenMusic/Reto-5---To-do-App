@@ -6,6 +6,7 @@ import "./styles.css";
 
 const App = () => {
   const [taskList, setTaskList] = useState([]);
+  const [background, setBackground] = useState("");
 
   function taskObject() {
     this.id = Date.now();
@@ -22,6 +23,23 @@ const App = () => {
     });
   };
 
+  let clickHandlerPersonalize = () => {
+    switch (background) {
+      case "":
+        setBackground("cubic");
+        break;
+      case "cubic":
+        setBackground("triangular");
+        break;
+      case "triangular":
+        setBackground("zigzag");
+        break;
+      case "zigzag":
+        setBackground("");
+        break;
+    }
+  };
+
   function saveTaskText(taskText, taskId) {
     console.log(taskText);
     console.log(taskId);
@@ -33,7 +51,7 @@ const App = () => {
   }
 
   return (
-    <div className="viewport triangular">
+    <div className={`viewport ${background}`}>
       <NavBar />
       <main>
         {taskList.map((e) => {
@@ -43,6 +61,14 @@ const App = () => {
           <img
             class="add-task"
             src="/icons/plus-circle-svgrepo-com.svg"
+            alt=""
+          />
+        </button>
+
+        <button className="personalize" onClick={clickHandlerPersonalize}>
+          <img
+            class="add-task"
+            src="src/assets/icons/brush-svgrepo-com.svg"
             alt=""
           />
         </button>

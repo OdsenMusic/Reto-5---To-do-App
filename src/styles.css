@@ -22,6 +22,10 @@
   overflow: hidden;
 }
 
+div.viewport.darkmode {
+  background-color: #3e3e3e;
+}
+
 .cubic {
   background-color: #f3f3f3;
   opacity: 0.8;
@@ -135,4 +139,19 @@ img.add-task {
   width: 40px;
 }
 
+button.personalize {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+
+  background-color: transparent;
+  border: 0;
+  opacity: 0;
+  transition: 0.3s;
+}
+
 /* -----------------------------HOVERS------------------------- */
+
+button.personalize:hover {
+  opacity: 1;
+}

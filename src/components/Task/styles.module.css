@@ -17,6 +17,60 @@ article {
   transition: 0.3s;
 }
 
+article.white {
+  background-color: rgba(255, 255, 255, 0.785);
+}
+
+article.green {
+  background-color: rgba(212, 255, 156, 0.785);
+}
+
+article.yellow {
+  background-color: rgba(255, 235, 156, 0.749);
+}
+
+article.blue {
+  background-color: rgba(179, 208, 251, 0.785);
+}
+
+article.orange {
+  background-color: rgba(255, 210, 156, 0.785);
+}
+
+article.purple {
+  background-color: rgba(205, 179, 251, 0.785);
+}
+
+article.white:hover {
+  backdrop-filter: blur(50);
+  border: 2px solid rgba(230, 230, 230, 0.785);
+}
+
+article.green:hover {
+  backdrop-filter: blur(50);
+  border: 2px solid rgba(194, 232, 144, 0.785);
+}
+
+article.yellow:hover {
+  backdrop-filter: blur(50);
+  border: 2px solid var(--dark-yellow);
+}
+
+article.blue:hover {
+  backdrop-filter: blur(50);
+  border: 2px solid rgba(162, 188, 227, 0.785);
+}
+
+article.orange:hover {
+  backdrop-filter: blur(50);
+  border: 2px solid rgba(223, 184, 138, 0.785);
+}
+
+article.purple:hover {
+  backdrop-filter: blur(50);
+  border: 2px solid rgba(187, 164, 227, 0.785);
+}
+
 textarea {
   resize: none;
   background-color: transparent;
@@ -34,9 +88,4 @@ textarea {
   position: relative;
   height: fit-content;
   width: fit-content;
-}
-
-article:hover {
-  backdrop-filter: blur(50);
-  border: 2px solid var(--dark-yellow);
 }
