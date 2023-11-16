@@ -34,7 +34,7 @@ export default function NavBar({}) {
 
   function deleteGroup(value, groupId) {
     let exactGroup = groupList.findIndex((group) => group.id === groupId);
-    setGroupList[groupList.splice(exactGroup, 1)];
+    setGroupList(groupList.splice(exactGroup, 1));
   }
 
   return (

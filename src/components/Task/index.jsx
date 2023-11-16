@@ -5,7 +5,7 @@ import TaskMenu from "../TaskMenu";
 import style from "./styles.module.css";
 import { motion, easeInOut } from "framer-motion";
 
-export default function Task({ onSave, id }) {
+export default function Task({ onSave, id, text }) {
   const [taskText, setTaskText] = useState("");
   const [taskId, setTaskId] = useState(id);
 
@@ -25,7 +25,7 @@ export default function Task({ onSave, id }) {
     >
       <ColorSelector />
       <article className={style.white}>
-        <textarea maxLength="40" onChange={handleTaskText} />
+        <textarea maxLength="40" onChange={handleTaskText} value={text} />
         <TaskMenu />
       </article>
       <Checkbox />

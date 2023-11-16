@@ -1,12 +1,16 @@
 import AddTaskButton from "./components/AddTaskButton";
 import Task from "./components/Task";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "./components/NavBar/index.jsx";
 import "./styles.css";
 
 const App = () => {
   const [taskList, setTaskList] = useState([]);
   const [background, setBackground] = useState("");
+
+  useEffect(() => {
+    getTasks();
+  }, []);
 
   function taskObject() {
     this.id = Date.now();
@@ -45,23 +49,53 @@ const App = () => {
     exactTask.description = taskText;
   }
 
+  const getTasks = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/todo");
+      if (response.ok) {
+        const json = await response.json();
+        setTaskList(json);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const newTask = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/todo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response.ok) {
+        const json = await response.json();
+        setTaskList(json);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={`viewport ${background}`}>
       <NavBar />
       <main>
-        {taskList.map((e) => {
-          return <Task id={e.id} key={e.id} onSave={saveTaskText} />;
-        })}
-        <button className="add-task" onClick={clickHandlerAddTask}>
+        {taskList &&
+          taskList.map((e) => {
+            return (
+              <Task id={e.id} key={e.id} onSave={saveTaskText} text={e.text} />
+            );
+          })}
+        <button className="add-task" onClick={newTask}>
           <img
-            class="add-task"
+            className="add-task"
             src="/icons/plus-circle-svgrepo-com.svg"
             alt=""
           />
         </button>
         <button className="personalize" onClick={clickHandlerPersonalize}>
           <img
-            class="add-task"
+            className="add-task"
             src="src/assets/icons/brush-svgrepo-com.svg"
             alt=""
           />
