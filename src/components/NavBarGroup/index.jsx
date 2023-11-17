@@ -5,17 +5,17 @@ import ColorSelector from "../ColorSelector";
 import { motion, easeInOut } from "framer-motion";
 import style from "../NavBarGroup/styles.module.css";
 
-export default function NavBarGroup({ onChange, onClick, id }) {
+export default function NavBarGroup({ onChange, onClick, id, name, color }) {
   const [groupName, setGroupName] = useState("");
-  const [objectId, setObjectId] = useState(id);
 
   function saveGroupName(event) {
     setGroupName(event.target.value);
     onChange(groupName, id);
   }
 
-  function deleteGroup(value) {
-    onClick?.(value, id);
+  function deleteGroup() {
+    console.log(id);
+    onClick(id);
   }
 
   return (
@@ -24,7 +24,7 @@ export default function NavBarGroup({ onChange, onClick, id }) {
       animate={{ opacity: 1, scale: 1, translateY: 0 }}
       transition={{ duration: 0.3, ease: [0.24, 0.46, 0.42, 1] }}
       layout
-      className={`${style.groupFrame} ${style.yellow}`}
+      className={`${style.groupFrame} ${style[color]}`}
     >
       <button className={style.deleteGroupButton} onClick={deleteGroup}>
         <img
@@ -33,12 +33,7 @@ export default function NavBarGroup({ onChange, onClick, id }) {
           alt=""
         />
       </button>
-      <input
-        maxLength="13"
-        onChange={saveGroupName}
-        type="text"
-        value={groupName}
-      />
+      <input maxLength="13" onChange={saveGroupName} type="text" value={name} />
     </motion.div>
   );
 }

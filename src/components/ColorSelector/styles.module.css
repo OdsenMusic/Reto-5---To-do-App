@@ -20,7 +20,7 @@
 
 .taskColorSelector {
   position: absolute;
-  bottom: -50%;
+  bottom: -41%;
   left: 15%;
 }
 
@@ -52,7 +52,7 @@
   background-color: rgb(181, 218, 255);
 }
 
-.grey {
+.orange {
   background-color: rgb(255, 206, 169);
 }
 

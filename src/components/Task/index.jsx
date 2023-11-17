@@ -5,16 +5,7 @@ import TaskMenu from "../TaskMenu";
 import style from "./styles.module.css";
 import { motion, easeInOut } from "framer-motion";
 
-export default function Task({ onSave, id, text }) {
-  const [taskText, setTaskText] = useState("");
-  const [taskId, setTaskId] = useState(id);
-
-  const handleTaskText = (event) => {
-    setTaskText(event.target.value);
-    onSave(taskText, id);
-    console.log("hijo " + id);
-  };
-
+export default function Task({ key, id, text, color, done }) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5, translateX: 100 }}
@@ -23,12 +14,12 @@ export default function Task({ onSave, id, text }) {
       layout
       className={style.taskWrapper}
     >
-      <ColorSelector />
-      <article className={style.white}>
-        <textarea maxLength="40" onChange={handleTaskText} value={text} />
-        <TaskMenu />
+      <ColorSelector key={key} id={id} />
+      <article className={style[color]}>
+        <textarea maxLength="40" value={text} />
+        <TaskMenu key={key} id={id} />
       </article>
-      <Checkbox />
+      <Checkbox key={key} id={id} done={done} />
     </motion.div>
   );
 }

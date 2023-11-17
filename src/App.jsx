@@ -21,12 +21,6 @@ const App = () => {
     this.archived = false;
   }
 
-  let clickHandlerAddTask = () => {
-    setTaskList((prev) => {
-      return [...prev, new taskObject("")];
-    });
-  };
-
   let clickHandlerPersonalize = () => {
     switch (background) {
       case "":
@@ -61,7 +55,7 @@ const App = () => {
     }
   };
 
-  const newTask = async () => {
+  const newTask = async (prev) => {
     try {
       const response = await fetch("http://localhost:3000/todo", {
         method: "POST",
@@ -69,7 +63,9 @@ const App = () => {
       });
       if (response.ok) {
         const json = await response.json();
-        setTaskList(json);
+        setTaskList((prev) => {
+          return [...prev, json];
+        });
       }
     } catch (error) {
       console.log(error);
@@ -83,7 +79,16 @@ const App = () => {
         {taskList &&
           taskList.map((e) => {
             return (
-              <Task id={e.id} key={e.id} onSave={saveTaskText} text={e.text} />
+              <Task
+                id={e.id}
+                key={e.id}
+                text={e.text}
+                color={e.color}
+                done={e.done}
+                onClick={() => {
+                  console.log("hoal");
+                }}
+              />
             );
           })}
         <button className="add-task" onClick={newTask}>

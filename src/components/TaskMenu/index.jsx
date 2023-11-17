@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./styles.module.css";
 
-function TaskMenu() {
+function TaskMenu({ key, id }) {
+  const deleteTask = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/todo/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={style.taskMenuContainer}>
       <button>
@@ -11,7 +23,7 @@ function TaskMenu() {
           alt=""
         />
       </button>
-      <button>
+      <button key={key} onClick={deleteTask}>
         <img
           className={style.icon}
           src="src/assets/icons/trash-svgrepo-com.svg"

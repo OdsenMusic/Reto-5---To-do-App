@@ -9,11 +9,21 @@ import style from "../NavBar/styles.module.css";
 export default function NavBar({}) {
   const [groupList, setGroupList] = useState([]);
 
-  function groupObject() {
-    this.id = Date.now();
-    this.name = "";
-    this.color = "white";
-  }
+  useEffect(() => {
+    getGroups();
+  }, []);
+
+  const getGroups = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/groups");
+      if (response.ok) {
+        const json = await response.json();
+        setGroupList(json);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   function addNewGroup(prev) {
     setGroupList((prev) => {
@@ -63,7 +73,9 @@ export default function NavBar({}) {
               onChange={saveGroup}
               id={e.id}
               key={e.id}
+              name={e.name}
               onClick={deleteGroup}
+              color={e.color}
             />
           );
         })}
@@ -71,9 +83,6 @@ export default function NavBar({}) {
       <button onClick={addNewGroup} className={style.addGroup}>
         <img src="/icons/plus-circle-svgrepo-com.svg" alt="" />
         Crear grupo
-      </button>
-      <button className={style.addGroup}>
-        <img src="src/assets/icons/arrow-left-335-svgrepo-com.svg" alt="" />
       </button>
     </nav>
   );
