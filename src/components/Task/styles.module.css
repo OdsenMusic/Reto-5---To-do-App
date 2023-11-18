@@ -72,11 +72,9 @@ article.purple:hover {
   border: 2px solid rgba(187, 164, 227, 0.785);
 }
 
-textarea {
-  resize: none;
+textarea.taskText {
   background-color: transparent;
   border: none;
-  outline: none;
   text-align: center;
   text-wrap: wrap;
   height: 100%;

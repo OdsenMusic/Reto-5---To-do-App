@@ -3,27 +3,43 @@ import Task from "./components/Task";
 import React, { useEffect, useState } from "react";
 import NavBar from "./components/NavBar/index.jsx";
 import "./index.css";
+import TaskModificationPopup from "./components/TaskModificationPopup/index.jsx";
+import { motion, AnimatePresence } from "framer-motion";
 
 const App = () => {
   const [taskList, setTaskList] = useState([]);
+  const [groupList, setGroupList] = useState([]);
   const [background, setBackground] = useState("");
   const [reload, setReload] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [taskFilter, setTaskFilter] = useState("");
 
   useEffect(() => {
     getTasks();
+  }, [reload]);
+
+  useEffect(() => {
+    getGroups();
   }, [reload]);
 
   function forceReload() {
     setReload(!reload);
   }
 
-  function taskObject() {
-    this.id = Date.now();
-    this.description = "";
-    this.group = "";
-    this.color = "white";
-    this.completed = false;
-    this.archived = false;
+  const getGroups = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/groups");
+      if (response.ok) {
+        const json = await response.json();
+        setGroupList(json);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  function toggleEditMode() {
+    setEditMode(!editMode);
   }
 
   let clickHandlerPersonalize = () => {
@@ -46,9 +62,8 @@ const App = () => {
     }
   };
 
-  function saveTaskText(taskText, taskId) {
-    let exactTask = taskList.find((task) => task.id === taskId);
-    exactTask.description = taskText;
+  function filterTasks(group) {
+    setTaskFilter(group);
   }
 
   const getTasks = async () => {
@@ -82,24 +97,33 @@ const App = () => {
 
   return (
     <div className={`viewport ${background}`}>
-      <NavBar />
+      <NavBar filterTasks={filterTasks} />
       <main>
+        <AnimatePresence>
+          {editMode && (
+            <TaskModificationPopup toggleEditMode={toggleEditMode} />
+          )}
+        </AnimatePresence>
         {taskList &&
-          taskList.map((e) => {
-            return (
-              <Task
-                id={e.id}
-                key={e.id}
-                text={e.text}
-                color={e.color}
-                done={e.done}
-                forceReload={forceReload}
-                onClick={() => {
-                  console.log("hoal");
-                }}
-              />
-            );
-          })}
+          taskList
+            .filter((e) => {
+              return taskFilter === "" ? e : e.group.includes(taskFilter);
+            })
+            .map((e) => {
+              return (
+                <Task
+                  id={e.id}
+                  key={e.id}
+                  text={e.text}
+                  color={e.color}
+                  done={e.done}
+                  group={e.group}
+                  forceReload={forceReload}
+                  toggleEditMode={toggleEditMode}
+                  groupList={groupList}
+                />
+              );
+            })}
         <button className="add-task" onClick={newTask}>
           <img
             className="add-task"

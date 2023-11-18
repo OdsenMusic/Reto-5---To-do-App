@@ -6,12 +6,17 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import style from "../NavBar/styles.module.css";
 
-export default function NavBar({}) {
+export default function NavBar({ filterTasks }) {
   const [groupList, setGroupList] = useState([]);
+  const [reload, setReload] = useState(false);
+
+  function forceReload() {
+    setReload(!reload);
+  }
 
   useEffect(() => {
     getGroups();
-  }, []);
+  }, [reload]);
 
   const getGroups = async () => {
     try {
@@ -25,33 +30,29 @@ export default function NavBar({}) {
     }
   };
 
-  function addNewGroup(prev) {
-    setGroupList((prev) => {
-      return [...prev, new groupObject()];
-    });
-
-    console.log(groupList);
-  }
-
-  function saveGroup(groupName, groupId) {
-    console.log(groupName);
-
-    let exactGroup = groupList.find((group) => group.id === groupId);
-    exactGroup.name = groupName;
-
-    console.log(exactGroup);
-  }
-
-  function deleteGroup(value, groupId) {
-    let exactGroup = groupList.findIndex((group) => group.id === groupId);
-    setGroupList(groupList.splice(exactGroup, 1));
-  }
+  const addNewGroup = async (prev) => {
+    try {
+      const response = await fetch("http://localhost:3000/groups", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response.ok) {
+        const json = await response.json();
+        setGroupList((prev) => {
+          return [...prev, json];
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <nav className={style}>
       <Logo />
       <ul>
         <NavBarMenuCard
+          filterTasks={filterTasks}
           text="Tareas"
           icon="src/assets/icons/clipboard-svgrepo-com (1).svg"
         />
@@ -70,12 +71,12 @@ export default function NavBar({}) {
         {groupList.map((e) => {
           return (
             <NavBarGroup
-              onChange={saveGroup}
               id={e.id}
               key={e.id}
               name={e.name}
-              onClick={deleteGroup}
+              forceReload={forceReload}
               color={e.color}
+              filterTasks={filterTasks}
             />
           );
         })}

@@ -5,18 +5,44 @@ import ColorSelector from "../ColorSelector";
 import { motion, easeInOut } from "framer-motion";
 import style from "../NavBarGroup/styles.module.css";
 
-export default function NavBarGroup({ onChange, onClick, id, name, color }) {
-  const [groupName, setGroupName] = useState("");
+export default function NavBarGroup({
+  id,
+  name,
+  color,
+  forceReload,
+  filterTasks,
+}) {
+  const changeGroupName = async (event) => {
+    let payload = {
+      name: event.target.value,
+    };
+    try {
+      const response = await fetch(`http://localhost:3000/groups/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (response.ok) {
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  function saveGroupName(event) {
-    setGroupName(event.target.value);
-    onChange(groupName, id);
-  }
-
-  function deleteGroup() {
-    console.log(id);
-    onClick(id);
-  }
+  const deleteGroup = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/groups/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        forceReload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <motion.div
@@ -25,6 +51,9 @@ export default function NavBarGroup({ onChange, onClick, id, name, color }) {
       transition={{ duration: 0.3, ease: [0.24, 0.46, 0.42, 1] }}
       layout
       className={`${style.groupFrame} ${style[color]}`}
+      onClick={() => {
+        filterTasks(name);
+      }}
     >
       <button className={style.deleteGroupButton} onClick={deleteGroup}>
         <img
@@ -33,7 +62,12 @@ export default function NavBarGroup({ onChange, onClick, id, name, color }) {
           alt=""
         />
       </button>
-      <input maxLength="13" onChange={saveGroupName} type="text" value={name} />
+      <textarea
+        defaultValue={name}
+        onBlur={changeGroupName}
+        maxLength="13"
+        type="text"
+      ></textarea>
     </motion.div>
   );
 }

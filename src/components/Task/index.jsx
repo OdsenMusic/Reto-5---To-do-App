@@ -5,7 +5,54 @@ import TaskMenu from "../TaskMenu";
 import style from "./styles.module.css";
 import { motion, easeInOut } from "framer-motion";
 
-export default function Task({ key, id, text, color, done, forceReload }) {
+export default function Task({
+  id,
+  text,
+  color,
+  done,
+  group,
+  forceReload,
+  toggleEditMode,
+  groupList,
+}) {
+  const changeTaskText = async (event) => {
+    let payload = {
+      text: event.target.value,
+    };
+    try {
+      const response = await fetch(`http://localhost:3000/todo/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (response.ok) {
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const changeTaskGroup = async (event) => {
+    let payload = {
+      group: event.target.value,
+    };
+    try {
+      const response = await fetch(`http://localhost:3000/todo/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (response.ok) {
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5, translateX: 100 }}
@@ -14,12 +61,22 @@ export default function Task({ key, id, text, color, done, forceReload }) {
       layout
       className={style.taskWrapper}
     >
-      <ColorSelector key={key} id={id} forceReload={forceReload} />
+      <ColorSelector id={id} forceReload={forceReload} />
       <article className={style[color]}>
-        <textarea maxLength="40" value={text} contentEditable={true} />
-        <TaskMenu key={key} id={id} forceReload={forceReload} />
+        <textarea
+          defaultValue={text}
+          onBlur={changeTaskText}
+          className={style.taskText}
+        ></textarea>
+        <TaskMenu
+          id={id}
+          forceReload={forceReload}
+          toggleEditMode={toggleEditMode}
+          groupList={groupList}
+          group={group}
+        />
       </article>
-      <Checkbox key={key} id={id} done={done} />
+      <Checkbox id={id} done={done} forceReload={forceReload} />
     </motion.div>
   );
 }

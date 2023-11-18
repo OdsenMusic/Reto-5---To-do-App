@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import style from "./styles.module.css";
+import GroupSelector from "../GroupSelector";
 
-function TaskMenu({ key, id, forceReload }) {
+function TaskMenu({ key, id, forceReload, toggleEditMode, groupList, group }) {
+  const [groupSelectorVisibility, setGrupSelectorVisibility] = useState(false);
+
   const deleteTask = async () => {
     try {
       const response = await fetch(`http://localhost:3000/todo/${id}`, {
@@ -31,14 +34,22 @@ function TaskMenu({ key, id, forceReload }) {
           alt=""
         />
       </button>
-      <button className="taskBarMenuButton">
+      <button
+        onClick={() => {
+          setGrupSelectorVisibility(!groupSelectorVisibility);
+        }}
+        className="taskBarMenuButton"
+      >
         <img
           className={style.icon}
           src="src/assets/icons/tag-2-svgrepo-com.svg"
           alt=""
         />
+        {groupSelectorVisibility && (
+          <GroupSelector id={id} group={group} groupList={groupList} />
+        )}
       </button>
-      <button className="taskBarMenuButton">
+      <button onClick={toggleEditMode} className="taskBarMenuButton">
         <img
           className={style.icon}
           src="src/assets/icons/brush-svgrepo-com.svg"

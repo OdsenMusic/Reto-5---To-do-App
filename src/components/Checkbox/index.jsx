@@ -1,12 +1,30 @@
 import React from "react";
 import style from "./styles.module.css";
 
-export default function Checkbox({ key, id, done }) {
-  let isChecked = done;
+export default function Checkbox({ key, id, done, forceReload }) {
+  const changeCheckbox = async (event) => {
+    let payload = {
+      done: !done,
+    };
+    try {
+      const response = await fetch(`http://localhost:3000/todo/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (response.ok) {
+        forceReload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <label>
-      <input checked={isChecked} type="checkbox" />
+      <input onChange={changeCheckbox} checked={done} type="checkbox" />
       <span></span>
     </label>
   );
