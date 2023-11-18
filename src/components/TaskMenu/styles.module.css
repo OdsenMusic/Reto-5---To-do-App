@@ -18,13 +18,24 @@
   height: 14px;
 }
 
-button {
+button.taskBarMenuButton {
   height: min-content;
   width: min-content;
   padding: 0;
+  transition: 0.2s;
 }
 
 .taskMenuContainer:hover {
   opacity: 100%;
   transition-delay: 0s;
+}
+
+/* -----------------------------Hover--------------------------------- */
+
+button.taskBarMenuButton:hover {
+  scale: 1.1;
+}
+
+button.taskBarMenuButton:active {
+  scale: 0.9;
 }

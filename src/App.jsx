@@ -2,15 +2,20 @@ import AddTaskButton from "./components/AddTaskButton";
 import Task from "./components/Task";
 import React, { useEffect, useState } from "react";
 import NavBar from "./components/NavBar/index.jsx";
-import "./styles.css";
+import "./index.css";
 
 const App = () => {
   const [taskList, setTaskList] = useState([]);
   const [background, setBackground] = useState("");
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     getTasks();
-  }, []);
+  }, [reload]);
+
+  function forceReload() {
+    setReload(!reload);
+  }
 
   function taskObject() {
     this.id = Date.now();
@@ -33,6 +38,9 @@ const App = () => {
         setBackground("zigzag");
         break;
       case "zigzag":
+        setBackground("tablecloth");
+        break;
+      case "tablecloth":
         setBackground("");
         break;
     }
@@ -85,6 +93,7 @@ const App = () => {
                 text={e.text}
                 color={e.color}
                 done={e.done}
+                forceReload={forceReload}
                 onClick={() => {
                   console.log("hoal");
                 }}

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.css";
 
-function ColorSelector({ key, id }) {
+function ColorSelector({ key, id, forceReload }) {
   const changeTaskColor = async (color) => {
     let payload = {
       color: color,
@@ -17,6 +17,7 @@ function ColorSelector({ key, id }) {
         body: JSON.stringify(payload),
       });
       if (response.ok) {
+        forceReload();
       }
     } catch (error) {
       console.log(error);

@@ -5,7 +5,7 @@ import TaskMenu from "../TaskMenu";
 import style from "./styles.module.css";
 import { motion, easeInOut } from "framer-motion";
 
-export default function Task({ key, id, text, color, done }) {
+export default function Task({ key, id, text, color, done, forceReload }) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5, translateX: 100 }}
@@ -14,10 +14,10 @@ export default function Task({ key, id, text, color, done }) {
       layout
       className={style.taskWrapper}
     >
-      <ColorSelector key={key} id={id} />
+      <ColorSelector key={key} id={id} forceReload={forceReload} />
       <article className={style[color]}>
-        <textarea maxLength="40" value={text} />
-        <TaskMenu key={key} id={id} />
+        <textarea maxLength="40" value={text} contentEditable={true} />
+        <TaskMenu key={key} id={id} forceReload={forceReload} />
       </article>
       <Checkbox key={key} id={id} done={done} />
     </motion.div>
