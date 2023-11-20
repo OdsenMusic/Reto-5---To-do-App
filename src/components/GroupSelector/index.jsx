@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../GroupSelector/styles.module.css";
 
-export default function GroupSelector({ id, groupList, group }) {
+export default function GroupSelector({ id, groupList, group, forceReload }) {
   const changeTaskGroup = async (event) => {
     console.log(event.target.value);
     let payload = {
@@ -16,6 +16,7 @@ export default function GroupSelector({ id, groupList, group }) {
         body: JSON.stringify(payload),
       });
       if (response.ok) {
+        forceReload();
       }
     } catch (error) {
       console.log(error);

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
 import Checkbox from "../Checkbox";
 import ColorSelector from "../ColorSelector";
 import TaskMenu from "../TaskMenu";
 import style from "./styles.module.css";
-import { motion, easeInOut } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function Task({
   id,

@@ -1,8 +1,8 @@
-input {
+input.taskCheckbox {
   display: none;
 }
 
-label {
+label.taskCheckbox {
   position: absolute;
   left: -6%;
   bottom: 64%;
@@ -10,7 +10,7 @@ label {
   cursor: pointer;
 }
 
-span {
+span.taskCheckbox {
   position: relative;
   display: inline-block;
   width: 2em;
@@ -24,7 +24,7 @@ span {
   transition: 0.3s;
 }
 
-span:after {
+span.taskCheckbox:after {
   content: "";
   position: absolute;
   width: 0.5em;
@@ -38,13 +38,13 @@ span:after {
   transition: 0.3s;
 }
 
-label input:checked ~ span {
+label input.taskCheckbox:checked ~ span.taskCheckbox {
   background-color: rgba(166, 199, 113, 0.657);
   border: 1px solid rgb(164, 185, 134);
   box-shadow: 0 0 10px 2px rgb(220, 239, 191);
   transition: 0.3s;
 }
 
-label input:checked ~ span:after {
+label input.taskCheckbox:checked ~ span.taskCheckbox:after {
   opacity: 1;
 }

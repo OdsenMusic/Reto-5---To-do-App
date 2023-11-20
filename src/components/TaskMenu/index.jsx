@@ -46,7 +46,12 @@ function TaskMenu({ key, id, forceReload, toggleEditMode, groupList, group }) {
           alt=""
         />
         {groupSelectorVisibility && (
-          <GroupSelector id={id} group={group} groupList={groupList} />
+          <GroupSelector
+            id={id}
+            group={group}
+            groupList={groupList}
+            forceReload={forceReload}
+          />
         )}
       </button>
       <button onClick={toggleEditMode} className="taskBarMenuButton">

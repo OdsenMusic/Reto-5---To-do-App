@@ -76,7 +76,7 @@ div.groupFrame.green:hover {
 
 div.groupFrame.yellow:hover {
   backdrop-filter: blur(50px);
-  border: 2px solid var(--dark-yellow);
+  border: 2px solid rgba(211, 195, 131, 0.749);
 }
 
 div.groupFrame.blue:hover {

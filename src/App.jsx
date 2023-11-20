@@ -1,18 +1,21 @@
-import AddTaskButton from "./components/AddTaskButton";
 import Task from "./components/Task";
 import React, { useEffect, useState } from "react";
 import NavBar from "./components/NavBar/index.jsx";
 import "./index.css";
 import TaskModificationPopup from "./components/TaskModificationPopup/index.jsx";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 const App = () => {
   const [taskList, setTaskList] = useState([]);
   const [groupList, setGroupList] = useState([]);
   const [background, setBackground] = useState("");
   const [reload, setReload] = useState(false);
-  const [editMode, setEditMode] = useState(false);
   const [taskFilter, setTaskFilter] = useState("");
+  const [editMode, setEditMode] = useState(false);
+
+  function toggleEditMode() {
+    setEditMode(!editMode);
+  }
 
   useEffect(() => {
     getTasks();
@@ -37,10 +40,6 @@ const App = () => {
       console.log(error);
     }
   };
-
-  function toggleEditMode() {
-    setEditMode(!editMode);
-  }
 
   let clickHandlerPersonalize = () => {
     switch (background) {
@@ -97,7 +96,12 @@ const App = () => {
 
   return (
     <div className={`viewport ${background}`}>
-      <NavBar filterTasks={filterTasks} />
+      <NavBar
+        filterTasks={filterTasks}
+        groupList={groupList}
+        setGroupList={setGroupList}
+        forceReload={forceReload}
+      />
       <main>
         <AnimatePresence>
           {editMode && (
@@ -111,17 +115,19 @@ const App = () => {
             })
             .map((e) => {
               return (
-                <Task
-                  id={e.id}
-                  key={e.id}
-                  text={e.text}
-                  color={e.color}
-                  done={e.done}
-                  group={e.group}
-                  forceReload={forceReload}
-                  toggleEditMode={toggleEditMode}
-                  groupList={groupList}
-                />
+                <>
+                  <Task
+                    id={e.id}
+                    key={e.id}
+                    text={e.text}
+                    color={e.color}
+                    done={e.done}
+                    group={e.group}
+                    forceReload={forceReload}
+                    toggleEditMode={toggleEditMode}
+                    groupList={groupList}
+                  />
+                </>
               );
             })}
         <button className="add-task" onClick={newTask}>

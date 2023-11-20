@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./styles.module.css";
+import styles from "./styles.module.css";
 
 export default function Checkbox({ key, id, done, forceReload }) {
   const changeCheckbox = async (event) => {
@@ -23,9 +23,14 @@ export default function Checkbox({ key, id, done, forceReload }) {
   };
 
   return (
-    <label>
-      <input onChange={changeCheckbox} checked={done} type="checkbox" />
-      <span></span>
+    <label className={styles.taskCheckbox}>
+      <input
+        className={styles.taskCheckbox}
+        onChange={changeCheckbox}
+        checked={done}
+        type="checkbox"
+      />
+      <span className={styles.taskCheckbox}></span>
     </label>
   );
 }

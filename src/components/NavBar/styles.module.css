@@ -79,13 +79,3 @@ img {
   height: 20px;
   filter: contrast(0) brightness(1.2);
 }
-
-.logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 20px;
-  font-size: 1.8rem;
-  font-weight: 200;
-}

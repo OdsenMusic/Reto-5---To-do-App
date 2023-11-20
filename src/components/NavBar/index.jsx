@@ -1,35 +1,14 @@
-import AddGroupButton from "../AddGroupButton";
 import NavBarGroup from "../NavBarGroup";
 import NavBarMenuCard from "../NavBarMenuCard";
 import Logo from "../Logo";
-import React, { useEffect } from "react";
-import { useState } from "react";
 import style from "../NavBar/styles.module.css";
 
-export default function NavBar({ filterTasks }) {
-  const [groupList, setGroupList] = useState([]);
-  const [reload, setReload] = useState(false);
-
-  function forceReload() {
-    setReload(!reload);
-  }
-
-  useEffect(() => {
-    getGroups();
-  }, [reload]);
-
-  const getGroups = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/groups");
-      if (response.ok) {
-        const json = await response.json();
-        setGroupList(json);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+export default function NavBar({
+  filterTasks,
+  forceReload,
+  groupList,
+  setGroupList,
+}) {
   const addNewGroup = async (prev) => {
     try {
       const response = await fetch("http://localhost:3000/groups", {

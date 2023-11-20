@@ -1,8 +1,5 @@
 import React from "react";
-import { useState } from "react";
-import ColorSelector from "../ColorSelector";
-
-import { motion, easeInOut } from "framer-motion";
+import { motion } from "framer-motion";
 import style from "../NavBarGroup/styles.module.css";
 
 export default function NavBarGroup({
@@ -25,6 +22,7 @@ export default function NavBarGroup({
         body: JSON.stringify(payload),
       });
       if (response.ok) {
+        forceReload();
       }
     } catch (error) {
       console.log(error);

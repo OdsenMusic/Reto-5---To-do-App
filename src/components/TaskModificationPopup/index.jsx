@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./styles.module.css";
-import { motion, easeInOut } from "framer-motion";
+import { motion } from "framer-motion";
 
-export default function TaskModificationPopup({ toggleEditMode }) {
+export default function TaskModificationPopup({ toggleEditMode, text }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -13,9 +13,11 @@ export default function TaskModificationPopup({ toggleEditMode }) {
       className={styles.taskPopupContainer}
     >
       <article onClick={null} className={styles.taskPopup}>
-        <textarea className={styles.taskText} autoFocus>
-          holakase
-        </textarea>
+        <textarea
+          className={styles.taskText}
+          autoFocus
+          defaultValue={text}
+        ></textarea>
       </article>
     </motion.div>
   );
