@@ -1,9 +1,9 @@
-import Task from "./components/Task";
 import React, { useEffect, useState } from "react";
+import Task from "./components/Task";
 import NavBar from "./components/NavBar/index.jsx";
-import "./index.css";
 import TaskModificationPopup from "./components/TaskModificationPopup/index.jsx";
 import { AnimatePresence } from "framer-motion";
+import "./index.css";
 
 const App = () => {
   const [taskList, setTaskList] = useState([]);
@@ -13,57 +13,21 @@ const App = () => {
   const [taskFilter, setTaskFilter] = useState("");
   const [editMode, setEditMode] = useState(false);
 
-  function toggleEditMode() {
-    setEditMode(!editMode);
-  }
-
   useEffect(() => {
     getTasks();
-  }, [reload]);
-
-  useEffect(() => {
     getGroups();
   }, [reload]);
 
-  function forceReload() {
-    setReload(!reload);
-  }
+  const toggleEditMode = () => setEditMode(!editMode);
+  const forceReload = () => setReload(!reload);
+  const filterTasks = (group) => setTaskFilter(group);
 
-  const getGroups = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/groups");
-      if (response.ok) {
-        const json = await response.json();
-        setGroupList(json);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const clickHandlerPersonalize = () => {
+    const backgrounds = ["", "cubic", "triangular", "zigzag", "tablecloth"];
+    const currentIndex = backgrounds.indexOf(background);
+    const nextIndex = (currentIndex + 1) % backgrounds.length;
+    setBackground(backgrounds[nextIndex]);
   };
-
-  let clickHandlerPersonalize = () => {
-    switch (background) {
-      case "":
-        setBackground("cubic");
-        break;
-      case "cubic":
-        setBackground("triangular");
-        break;
-      case "triangular":
-        setBackground("zigzag");
-        break;
-      case "zigzag":
-        setBackground("tablecloth");
-        break;
-      case "tablecloth":
-        setBackground("");
-        break;
-    }
-  };
-
-  function filterTasks(group) {
-    setTaskFilter(group);
-  }
 
   const getTasks = async () => {
     try {
@@ -71,6 +35,18 @@ const App = () => {
       if (response.ok) {
         const json = await response.json();
         setTaskList(json);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getGroups = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/groups");
+      if (response.ok) {
+        const json = await response.json();
+        setGroupList(json);
       }
     } catch (error) {
       console.log(error);
@@ -108,28 +84,19 @@ const App = () => {
             <TaskModificationPopup toggleEditMode={toggleEditMode} />
           )}
         </AnimatePresence>
-        {taskList &&
-          taskList
-            .filter((e) => {
-              return taskFilter === "" ? e : e.group.includes(taskFilter);
-            })
-            .map((e) => {
-              return (
-                <>
-                  <Task
-                    id={e.id}
-                    key={e.id}
-                    text={e.text}
-                    color={e.color}
-                    done={e.done}
-                    group={e.group}
-                    forceReload={forceReload}
-                    toggleEditMode={toggleEditMode}
-                    groupList={groupList}
-                  />
-                </>
-              );
-            })}
+        {taskList
+          .filter(
+            (task) => taskFilter === "" || task.group.includes(taskFilter)
+          )
+          .map((task) => (
+            <Task
+              key={task.id}
+              {...task}
+              forceReload={forceReload}
+              toggleEditMode={toggleEditMode}
+              groupList={groupList}
+            />
+          ))}
         <button className="add-task" onClick={newTask}>
           <img
             className="add-task"

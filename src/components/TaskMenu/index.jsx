@@ -1,9 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./styles.module.css";
 import GroupSelector from "../GroupSelector";
 
-function TaskMenu({ key, id, forceReload, toggleEditMode, groupList, group }) {
+function TaskMenu({
+  key,
+  id,
+  forceReload,
+  groupList,
+  group,
+  changeTaskAttribute,
+  handleColorSelectorVisibility,
+}) {
   const [groupSelectorVisibility, setGrupSelectorVisibility] = useState(false);
+
+  useEffect(() => {
+    if (groupSelectorVisibility) {
+      const timer = setTimeout(() => {
+        setGrupSelectorVisibility(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [groupSelectorVisibility]);
 
   const deleteTask = async () => {
     try {
@@ -51,10 +69,14 @@ function TaskMenu({ key, id, forceReload, toggleEditMode, groupList, group }) {
             group={group}
             groupList={groupList}
             forceReload={forceReload}
+            changeTaskAttribute={changeTaskAttribute}
           />
         )}
       </button>
-      <button onClick={toggleEditMode} className="taskBarMenuButton">
+      <button
+        onClick={handleColorSelectorVisibility}
+        className="taskBarMenuButton"
+      >
         <img
           className={style.icon}
           src="src/assets/icons/brush-svgrepo-com.svg"

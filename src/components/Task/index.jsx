@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import Checkbox from "../Checkbox";
 import ColorSelector from "../ColorSelector";
 import TaskMenu from "../TaskMenu";
@@ -14,42 +15,40 @@ export default function Task({
   toggleEditMode,
   groupList,
 }) {
-  const changeTaskText = async (event) => {
-    let payload = {
-      text: event.target.value,
-    };
+  const [colorSelectorVisibility, setColorSelectorVisibility] = useState(false);
+
+  useEffect(() => {
+    if (colorSelectorVisibility) {
+      const timer = setTimeout(() => {
+        setColorSelectorVisibility(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [colorSelectorVisibility]);
+
+  const changeTaskAttribute = async (attribute, value) => {
+    const payload = { [attribute]: value };
     try {
       const response = await fetch(`http://localhost:3000/todo/${id}`, {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (response.ok) {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
     } catch (error) {
-      console.log(error);
+      console.error("Fetch error:", error);
     }
   };
 
-  const changeTaskGroup = async (event) => {
-    let payload = {
-      group: event.target.value,
-    };
-    try {
-      const response = await fetch(`http://localhost:3000/todo/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      if (response.ok) {
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const handleTextChange = (event) => {
+    changeTaskAttribute("text", event.target.value);
+  };
+
+  const handleColorSelectorVisibility = () => {
+    setColorSelectorVisibility(!colorSelectorVisibility);
   };
 
   return (
@@ -60,19 +59,23 @@ export default function Task({
       layout
       className={style.taskWrapper}
     >
-      <ColorSelector id={id} forceReload={forceReload} />
+      {colorSelectorVisibility && (
+        <ColorSelector id={id} forceReload={forceReload} />
+      )}
       <article className={style[color]}>
         <textarea
           defaultValue={text}
-          onBlur={changeTaskText}
+          onBlur={handleTextChange}
           className={style.taskText}
-        ></textarea>
+        />
         <TaskMenu
           id={id}
           forceReload={forceReload}
           toggleEditMode={toggleEditMode}
           groupList={groupList}
           group={group}
+          changeTaskAttribute={changeTaskAttribute}
+          handleColorSelectorVisibility={handleColorSelectorVisibility}
         />
       </article>
       <Checkbox id={id} done={done} forceReload={forceReload} />

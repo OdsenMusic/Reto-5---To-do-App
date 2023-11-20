@@ -1,57 +1,40 @@
 import React from "react";
 import styles from "../GroupSelector/styles.module.css";
 
-export default function GroupSelector({ id, groupList, group, forceReload }) {
-  const changeTaskGroup = async (event) => {
-    console.log(event.target.value);
-    let payload = {
-      group: event.target.value,
-    };
-    try {
-      const response = await fetch(`http://localhost:3000/todo/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      if (response.ok) {
-        forceReload();
-      }
-    } catch (error) {
-      console.log(error);
-    }
+export default function GroupSelector({
+  groupList,
+  group,
+  changeTaskAttribute,
+  forceReload,
+}) {
+  const handleGroupChange = (event) => {
+    changeTaskAttribute("group", event.target.value);
+    forceReload();
   };
-  let assignedGroupVar = "";
-  let noAssignedGroup = "";
 
-  if (group === "none") {
-    noAssignedGroup = styles.assignedGroup;
-  } else {
-    noAssignedGroup = "";
-  }
+  const getButtonStyle = (groupName) => {
+    return group === groupName ? styles.assignedGroup : "";
+  };
 
   return (
     <div className={styles.groupSelectorContainer}>
-      <button className={`${styles.groupSelectorButton} ${noAssignedGroup}`}>
+      <button
+        value="none"
+        className={`${styles.groupSelectorButton} ${getButtonStyle("none")}`}
+        onClick={handleGroupChange}
+      >
         Ninguno
       </button>
-      {groupList.map((e) => {
-        if (e.name === group) {
-          assignedGroupVar = styles.assignedGroup;
-        } else {
-          assignedGroupVar = "";
-        }
-        return (
-          <button
-            onClick={changeTaskGroup}
-            className={`${styles.groupSelectorButton} ${assignedGroupVar}`}
-            value={e.name}
-          >
-            {e.name}
-          </button>
-        );
-      })}
+      {groupList.map((e) => (
+        <button
+          key={e.name}
+          onClick={handleGroupChange}
+          className={`${styles.groupSelectorButton} ${getButtonStyle(e.name)}`}
+          value={e.name}
+        >
+          {e.name}
+        </button>
+      ))}
     </div>
   );
 }
