@@ -37,11 +37,13 @@ export default function NavBar({
           icon="src/assets/icons/clipboard-svgrepo-com (1).svg"
         />
         <NavBarMenuCard
+          filterTasks={filterTasks}
           text="Tareas finalizadas"
           icon="src/assets/icons/checkmark-circle-svgrepo-com (1).svg"
         />
 
         <NavBarMenuCard
+          filterTasks={filterTasks}
           text="Papelera"
           icon="src/assets/icons/trash-svgrepo-com.svg"
         />

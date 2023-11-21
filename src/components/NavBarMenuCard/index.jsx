@@ -7,6 +7,12 @@ export default function NavBarMenuCard({ icon, text, filterTasks }) {
       case "Tareas":
         filterTasks("");
         break;
+      case "Tareas finalizadas":
+        filterTasks("done");
+        break;
+      case "Papelera":
+        filterTasks("deleted");
+        break;
     }
   }
 

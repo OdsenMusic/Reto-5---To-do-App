@@ -1,6 +1,7 @@
 article {
   height: 80px;
   width: 220px;
+  position: none;
 
   display: flex;
   align-items: center;

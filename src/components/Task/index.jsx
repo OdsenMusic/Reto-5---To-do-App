@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Checkbox from "../Checkbox";
 import ColorSelector from "../ColorSelector";
 import TaskMenu from "../TaskMenu";
+import GroupSelector from "../GroupSelector";
 import style from "./styles.module.css";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -10,12 +11,24 @@ export default function Task({
   text,
   color,
   done,
+  deleted,
   group,
   forceReload,
   toggleEditMode,
   groupList,
 }) {
   const [colorSelectorVisibility, setColorSelectorVisibility] = useState(false);
+  const [groupSelectorVisibility, setGrupSelectorVisibility] = useState(false);
+
+  useEffect(() => {
+    if (groupSelectorVisibility) {
+      const timer = setTimeout(() => {
+        setGrupSelectorVisibility(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [groupSelectorVisibility]);
 
   useEffect(() => {
     if (colorSelectorVisibility) {
@@ -51,6 +64,9 @@ export default function Task({
     setColorSelectorVisibility(!colorSelectorVisibility);
   };
 
+  const handleGroupSelectorVisibility = () => {
+    setGrupSelectorVisibility(!groupSelectorVisibility);
+  };
   let completed = "";
 
   if (done) {
@@ -72,6 +88,15 @@ export default function Task({
         {colorSelectorVisibility && (
           <ColorSelector id={id} forceReload={forceReload} />
         )}
+        {groupSelectorVisibility && (
+          <GroupSelector
+            id={id}
+            group={group}
+            groupList={groupList}
+            forceReload={forceReload}
+            changeTaskAttribute={changeTaskAttribute}
+          />
+        )}
       </AnimatePresence>
       <article className={`${style[color]} ${completed}`}>
         <textarea
@@ -85,8 +110,10 @@ export default function Task({
           toggleEditMode={toggleEditMode}
           groupList={groupList}
           group={group}
+          deleted={deleted}
           changeTaskAttribute={changeTaskAttribute}
           handleColorSelectorVisibility={handleColorSelectorVisibility}
+          handleGroupSelectorVisibility={handleGroupSelectorVisibility}
         />
       </article>
       <Checkbox id={id} done={done} forceReload={forceReload} />

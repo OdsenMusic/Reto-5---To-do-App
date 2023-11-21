@@ -18,9 +18,30 @@ const App = () => {
     getGroups();
   }, [reload]);
 
+  useEffect(() => {
+    switch (taskFilter) {
+      case "deleted":
+        setBackground("red");
+        break;
+      case "done":
+        setBackground("green");
+        break;
+      case "":
+        setBackground("");
+        break;
+
+      default:
+        setBackground(
+          groupList.find((group) => group.name.toString() === taskFilter).color
+        );
+
+        break;
+    }
+  }, [taskFilter]);
+
   const toggleEditMode = () => setEditMode(!editMode);
   const forceReload = () => setReload(!reload);
-  const filterTasks = (group) => setTaskFilter(group);
+  const filterTasks = (filter) => setTaskFilter(filter);
 
   const clickHandlerPersonalize = () => {
     const backgrounds = ["", "cubic", "triangular", "zigzag", "tablecloth"];
@@ -80,21 +101,34 @@ const App = () => {
       />
       <main>
         {editMode && <TaskModificationPopup toggleEditMode={toggleEditMode} />}
+        <h1 className="viewportGroupName">{taskFilter}</h1>
 
         <AnimatePresence>
-          {taskList
-            .filter(
-              (task) => taskFilter === "" || task.group.includes(taskFilter)
-            )
-            .map((task) => (
-              <Task
-                key={task.id}
-                {...task}
-                forceReload={forceReload}
-                toggleEditMode={toggleEditMode}
-                groupList={groupList}
-              />
-            ))}
+          {taskList &&
+            taskList
+              .filter((task) => {
+                if (taskFilter === "deleted") {
+                  return task.deleted;
+                } else {
+                  return (
+                    !task.deleted &&
+                    ((!taskFilter && !task.done) ||
+                      (taskFilter === "done" && task.done) ||
+                      (taskFilter &&
+                        task.group &&
+                        task.group.includes(taskFilter)))
+                  );
+                }
+              })
+              .map((task) => (
+                <Task
+                  key={task.id}
+                  {...task}
+                  forceReload={forceReload}
+                  toggleEditMode={toggleEditMode}
+                  groupList={groupList}
+                />
+              ))}
         </AnimatePresence>
         <button className="add-task" onClick={newTask}>
           <img

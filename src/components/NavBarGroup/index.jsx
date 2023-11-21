@@ -9,60 +9,43 @@ export default function NavBarGroup({
   forceReload,
   filterTasks,
 }) {
-  const changeGroupName = async (event) => {
-    let payload = {
-      name: event.target.value,
-    };
+  const baseUrl = `http://localhost:3000/groups/${id}`;
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  const updateGroup = async (payload) => {
     try {
-      const response = await fetch(`http://localhost:3000/groups/${id}`, {
+      const response = await fetch(baseUrl, {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers,
         body: JSON.stringify(payload),
       });
+
       if (response.ok) {
         forceReload();
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
-  const changeGroupColor = async () => {
-    const colors = ["white", "green", "yellow", "blue", "orange", "purple"];
-    const currentIndex = colors.indexOf(color);
-    const nextIndex = (currentIndex + 1) % colors.length;
-    let nextColor = colors[nextIndex];
 
-    let payload = {
-      color: nextColor,
-    };
-    try {
-      const response = await fetch(`http://localhost:3000/groups/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      if (response.ok) {
-        forceReload();
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const changeGroupName = (event) => updateGroup({ name: event.target.value });
+
+  const changeGroupColor = () => {
+    const colors = ["white", "green", "yellow", "blue", "orange", "purple"];
+    const nextColor = colors[(colors.indexOf(color) + 1) % colors.length];
+    updateGroup({ color: nextColor });
   };
 
   const deleteGroup = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/groups/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(baseUrl, { method: "DELETE" });
       if (response.ok) {
         forceReload();
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -74,9 +57,7 @@ export default function NavBarGroup({
       exit={{ opacity: 0, scale: 0.5, translateY: 25 }}
       layout
       className={`${style.groupFrame} ${style[color]}`}
-      onClick={() => {
-        filterTasks(name);
-      }}
+      onClick={() => filterTasks(name)}
     >
       <button className={style.deleteGroupButton} onClick={deleteGroup}>
         <img
@@ -93,7 +74,6 @@ export default function NavBarGroup({
         defaultValue={name}
         onBlur={changeGroupName}
         maxLength="13"
-        type="text"
       ></textarea>
     </motion.div>
   );

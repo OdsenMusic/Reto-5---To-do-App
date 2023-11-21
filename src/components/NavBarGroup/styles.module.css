@@ -42,11 +42,27 @@ textarea {
   scale: 1.15;
 }
 
+.personalizeColor {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  opacity: 0;
+  transition: opacity 0.3s 0.2s;
+}
+
+.personalizeColor:hover {
+  scale: 1.15;
+}
+
 img.deleteGroupImg {
   height: 13px;
 }
 
 div.groupFrame:hover > .deleteGroupButton {
+  opacity: 1;
+}
+
+div.groupFrame:hover > .personalizeColor {
   opacity: 1;
 }
 
