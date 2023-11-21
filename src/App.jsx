@@ -79,24 +79,23 @@ const App = () => {
         forceReload={forceReload}
       />
       <main>
+        {editMode && <TaskModificationPopup toggleEditMode={toggleEditMode} />}
+
         <AnimatePresence>
-          {editMode && (
-            <TaskModificationPopup toggleEditMode={toggleEditMode} />
-          )}
+          {taskList
+            .filter(
+              (task) => taskFilter === "" || task.group.includes(taskFilter)
+            )
+            .map((task) => (
+              <Task
+                key={task.id}
+                {...task}
+                forceReload={forceReload}
+                toggleEditMode={toggleEditMode}
+                groupList={groupList}
+              />
+            ))}
         </AnimatePresence>
-        {taskList
-          .filter(
-            (task) => taskFilter === "" || task.group.includes(taskFilter)
-          )
-          .map((task) => (
-            <Task
-              key={task.id}
-              {...task}
-              forceReload={forceReload}
-              toggleEditMode={toggleEditMode}
-              groupList={groupList}
-            />
-          ))}
         <button className="add-task" onClick={newTask}>
           <img
             className="add-task"

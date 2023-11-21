@@ -17,6 +17,12 @@ article {
   transition: 0.3s;
 }
 
+article.completed {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  filter: brightness(0.9);
+}
+
 article.white {
   background-color: rgba(255, 255, 255, 0.785);
 }

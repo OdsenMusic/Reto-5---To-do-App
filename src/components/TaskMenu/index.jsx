@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import style from "./styles.module.css";
 import GroupSelector from "../GroupSelector";
+import { motion, AnimatePresence } from "framer-motion";
 
 function TaskMenu({
   key,
@@ -52,27 +53,32 @@ function TaskMenu({
           alt=""
         />
       </button>
-      <button
-        onClick={() => {
-          setGrupSelectorVisibility(!groupSelectorVisibility);
-        }}
-        className="taskBarMenuButton"
-      >
-        <img
-          className={style.icon}
-          src="src/assets/icons/tag-2-svgrepo-com.svg"
-          alt=""
-        />
-        {groupSelectorVisibility && (
-          <GroupSelector
-            id={id}
-            group={group}
-            groupList={groupList}
-            forceReload={forceReload}
-            changeTaskAttribute={changeTaskAttribute}
+      <div>
+        <button
+          onClick={() => {
+            console.log("pasa por el listener");
+            setGrupSelectorVisibility(!groupSelectorVisibility);
+          }}
+          className="taskBarMenuButton"
+        >
+          <img
+            className={style.icon}
+            src="src/assets/icons/tag-2-svgrepo-com.svg"
+            alt=""
           />
-        )}
-      </button>
+        </button>
+        <AnimatePresence>
+          {groupSelectorVisibility && (
+            <GroupSelector
+              id={id}
+              group={group}
+              groupList={groupList}
+              forceReload={forceReload}
+              changeTaskAttribute={changeTaskAttribute}
+            />
+          )}
+        </AnimatePresence>
+      </div>
       <button
         onClick={handleColorSelectorVisibility}
         className="taskBarMenuButton"

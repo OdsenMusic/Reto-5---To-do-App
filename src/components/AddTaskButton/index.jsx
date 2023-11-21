@@ -1,9 +1,11 @@
 import React from "react";
-export default function AddTaskButton({}) {
+import style from "../AddTaskButton/styles.module.css";
+
+export default function AddTaskButton() {
   return (
-    <button className="add-task" onClick={clickHandlerAddTask}>
+    <button className={style.addTask} onClick={clickHandlerAddTask}>
       <img
-        className="add-task"
+        className={style.addTask}
         src="/icons/plus-circle-svgrepo-com.svg"
         alt=""
       />

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles.module.css";
+import { motion, AnimatePresence } from "framer-motion";
 
 function ColorSelector({ id, forceReload }) {
   const changeTaskColor = async (color) => {
@@ -24,7 +25,11 @@ function ColorSelector({ id, forceReload }) {
     }
   };
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5, translateY: -50 }}
+      animate={{ opacity: 1, scale: 1, translateY: 0 }}
+      transition={{ duration: 0.3, ease: [0.24, 0.46, 0.42, 1] }}
+      exit={{ opacity: 0, scale: 0.5, translateY: -50 }}
       className={`${styles.colorSelectorContainer} ${styles.taskColorSelector}`}
     >
       <button
@@ -51,7 +56,7 @@ function ColorSelector({ id, forceReload }) {
         onClick={() => changeTaskColor("purple")}
         className={`${styles.color} ${styles.purple}`}
       ></button>
-    </div>
+    </motion.div>
   );
 }
 

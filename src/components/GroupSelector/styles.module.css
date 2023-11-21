@@ -23,8 +23,16 @@
   width: 100%;
   font-size: 0.7rem;
   font-weight: 600;
+  transition: 0.2s;
 }
 
 .assignedGroup {
+  background-color: rgb(233, 254, 202);
+}
+
+/* -------------------------------Hovers--------------------------- */
+
+.groupSelectorButton:hover {
+  scale: 1.05;
   background-color: rgb(233, 254, 202);
 }

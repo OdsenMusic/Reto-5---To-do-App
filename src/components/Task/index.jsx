@@ -3,7 +3,7 @@ import Checkbox from "../Checkbox";
 import ColorSelector from "../ColorSelector";
 import TaskMenu from "../TaskMenu";
 import style from "./styles.module.css";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Task({
   id,
@@ -51,18 +51,29 @@ export default function Task({
     setColorSelectorVisibility(!colorSelectorVisibility);
   };
 
+  let completed = "";
+
+  if (done) {
+    completed = style.completed;
+  } else {
+    completed = "";
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5, translateX: 100 }}
       animate={{ opacity: 1, scale: 1, translateX: 0 }}
       transition={{ duration: 0.3, ease: [0.24, 0.46, 0.42, 1] }}
+      exit={{ opacity: 0, scale: 0.5, translateX: 100 }}
       layout
       className={style.taskWrapper}
     >
-      {colorSelectorVisibility && (
-        <ColorSelector id={id} forceReload={forceReload} />
-      )}
-      <article className={style[color]}>
+      <AnimatePresence>
+        {colorSelectorVisibility && (
+          <ColorSelector id={id} forceReload={forceReload} />
+        )}
+      </AnimatePresence>
+      <article className={`${style[color]} ${completed}`}>
         <textarea
           defaultValue={text}
           onBlur={handleTextChange}

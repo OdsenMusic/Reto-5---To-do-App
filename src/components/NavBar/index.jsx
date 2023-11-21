@@ -2,6 +2,7 @@ import NavBarGroup from "../NavBarGroup";
 import NavBarMenuCard from "../NavBarMenuCard";
 import Logo from "../Logo";
 import style from "../NavBar/styles.module.css";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function NavBar({
   filterTasks,
@@ -47,21 +48,27 @@ export default function NavBar({
       </ul>
 
       <div className={style.groups}>
-        {groupList.map((e) => {
-          return (
-            <NavBarGroup
-              id={e.id}
-              key={e.id}
-              name={e.name}
-              forceReload={forceReload}
-              color={e.color}
-              filterTasks={filterTasks}
-            />
-          );
-        })}
+        <AnimatePresence>
+          {groupList.map((e) => {
+            return (
+              <NavBarGroup
+                id={e.id}
+                key={e.id}
+                name={e.name}
+                forceReload={forceReload}
+                color={e.color}
+                filterTasks={filterTasks}
+              />
+            );
+          })}
+        </AnimatePresence>
       </div>
       <button onClick={addNewGroup} className={style.addGroup}>
-        <img src="/icons/plus-circle-svgrepo-com.svg" alt="" />
+        <img
+          className={style.addGroup}
+          src="/icons/plus-circle-svgrepo-com.svg"
+          alt=""
+        />
         Crear grupo
       </button>
     </nav>
