@@ -116,7 +116,7 @@ export default function Task({
           handleGroupSelectorVisibility={handleGroupSelectorVisibility}
         />
       </article>
-      <Checkbox id={id} done={done} forceReload={forceReload} />
+      {!deleted && <Checkbox id={id} done={done} forceReload={forceReload} />}
     </motion.div>
   );
 }

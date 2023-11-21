@@ -20,10 +20,10 @@ const App = () => {
 
   useEffect(() => {
     switch (taskFilter) {
-      case "deleted":
+      case "Papelera":
         setBackground("red");
         break;
-      case "done":
+      case "Tareas finalizadas":
         setBackground("green");
         break;
       case "":
@@ -102,18 +102,22 @@ const App = () => {
       <main>
         {editMode && <TaskModificationPopup toggleEditMode={toggleEditMode} />}
         <h1 className="viewportGroupName">{taskFilter}</h1>
+        <div className="searchBar">
+          <img src="src/assets/icons/search-svgrepo-com (2).svg" alt="" />
+          <input className="searchInput" type="text" placeholder="Buscar" />
+        </div>
 
         <AnimatePresence>
           {taskList &&
             taskList
               .filter((task) => {
-                if (taskFilter === "deleted") {
+                if (taskFilter === "Papelera") {
                   return task.deleted;
                 } else {
                   return (
                     !task.deleted &&
                     ((!taskFilter && !task.done) ||
-                      (taskFilter === "done" && task.done) ||
+                      (taskFilter === "Tareas finalizadas" && task.done) ||
                       (taskFilter &&
                         task.group &&
                         task.group.includes(taskFilter)))

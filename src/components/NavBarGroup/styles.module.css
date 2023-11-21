@@ -42,12 +42,16 @@ textarea {
   scale: 1.15;
 }
 
-.personalizeColor {
+button.personalizeColor {
   position: absolute;
-  top: 2%;
+  bottom: 2%;
   right: 2%;
   opacity: 0;
   transition: opacity 0.3s 0.2s;
+}
+
+img.personalizeColor {
+  width: 15px;
 }
 
 .personalizeColor:hover {

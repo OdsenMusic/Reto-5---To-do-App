@@ -67,7 +67,11 @@ export default function NavBarGroup({
         />
       </button>
       <button onClick={changeGroupColor} className={style.personalizeColor}>
-        <img src="src/assets/icons/brush-svgrepo-com.svg" alt="" />
+        <img
+          className={style.personalizeColor}
+          src="src/assets/icons/color-swatch-svgrepo-com.svg"
+          alt=""
+        />
       </button>
       <textarea
         className={style.groupName}
