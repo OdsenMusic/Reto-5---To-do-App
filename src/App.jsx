@@ -7,6 +7,7 @@ import "./index.css";
 import searchIcon from "./assets/icons/search-svgrepo-com (2).svg";
 import trashIcon from "./assets/icons/trash-svgrepo-com.svg";
 import plusIcon from "./assets/icons/plus-circle-svgrepo-com.svg";
+import { getData, deleteAllTasks, newTask } from "./utils/apifunctions.js";
 
 const App = () => {
   const [taskList, setTaskList] = useState([]);
@@ -45,58 +46,6 @@ const App = () => {
   const toggleEditMode = () => setEditMode(!editMode);
   const forceReload = () => setReload(!reload);
   const filterTasks = (filter) => setTaskFilter(filter);
-
-  const getData = async (route, stateSetter) => {
-    try {
-      const response = await fetch(`http://localhost:3000/${route}`);
-      if (response.ok) {
-        const json = await response.json();
-        stateSetter(json);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const newTask = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/todo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-      if (response.ok) {
-        const json = await response.json();
-        setTaskList((prev) => {
-          return [...prev, json];
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const deleteTask = async (task) => {
-    try {
-      const response = await fetch(`http://localhost:3000/todo/${task.id}`, {
-        method: "DELETE",
-      });
-      if (response.ok) {
-        forceReload();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const deleteAllTasks = async () => {
-    let tasksToDelete = taskList.filter((task) => {
-      return task.deleted;
-    });
-
-    tasksToDelete.map((task) => {
-      deleteTask(task);
-    });
-  };
 
   return (
     <div className={`viewport ${background}`}>
