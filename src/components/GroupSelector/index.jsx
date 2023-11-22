@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../GroupSelector/styles.module.css";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function GroupSelector({
   groupList,

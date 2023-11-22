@@ -148,6 +148,18 @@ img.add-task {
   width: 40px;
 }
 
+button.deleteAll {
+  height: 36px;
+  width: 36px;
+  background-color: #f5f5f5;
+  box-shadow: 4px 4px 30px 0px rgba(0, 0, 0, 0.167);
+  border-radius: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* -------------------Hovers------------------ */
 
 button.add-task:hover {

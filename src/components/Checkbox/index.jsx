@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./styles.module.css";
 
-export default function Checkbox({ key, id, done, forceReload }) {
-  const changeCheckbox = async (event) => {
+export default function Checkbox({ id, done, forceReload }) {
+  const changeCheckbox = async () => {
     let payload = {
       done: !done,
     };

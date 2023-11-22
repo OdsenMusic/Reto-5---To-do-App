@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import Task from "./components/Task";
 import NavBar from "./components/NavBar/index.jsx";
 import TaskModificationPopup from "./components/TaskModificationPopup/index.jsx";
-import { AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import "./index.css";
+import searchIcon from "./assets/icons/search-svgrepo-com (2).svg";
+import trashIcon from "./assets/icons/trash-svgrepo-com.svg";
+import plusIcon from "./assets/icons/plus-circle-svgrepo-com.svg";
 
 const App = () => {
   const [taskList, setTaskList] = useState([]);
@@ -42,13 +45,6 @@ const App = () => {
   const toggleEditMode = () => setEditMode(!editMode);
   const forceReload = () => setReload(!reload);
   const filterTasks = (filter) => setTaskFilter(filter);
-
-  const clickHandlerPersonalize = () => {
-    const backgrounds = ["", "cubic", "triangular", "zigzag", "tablecloth"];
-    const currentIndex = backgrounds.indexOf(background);
-    const nextIndex = (currentIndex + 1) % backgrounds.length;
-    setBackground(backgrounds[nextIndex]);
-  };
 
   const getTasks = async () => {
     try {
@@ -91,6 +87,29 @@ const App = () => {
     }
   };
 
+  const deleteTask = async (task) => {
+    try {
+      const response = await fetch(`http://localhost:3000/todo/${task.id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        forceReload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteAllTasks = async () => {
+    let tasksToDelete = taskList.filter((task) => {
+      return task.deleted;
+    });
+
+    tasksToDelete.map((task) => {
+      deleteTask(task);
+    });
+  };
+
   return (
     <div className={`viewport ${background}`}>
       <NavBar
@@ -103,7 +122,7 @@ const App = () => {
         {editMode && <TaskModificationPopup toggleEditMode={toggleEditMode} />}
         <h1 className="viewportGroupName">{taskFilter}</h1>
         <div className="searchBar">
-          <img src="src/assets/icons/search-svgrepo-com (2).svg" alt="" />
+          <img src={searchIcon} alt="" />
           <input className="searchInput" type="text" placeholder="Buscar" />
         </div>
 
@@ -133,20 +152,20 @@ const App = () => {
                   groupList={groupList}
                 />
               ))}
+
+          {taskFilter === "Papelera" && (
+            <motion.button
+              layout
+              onClick={deleteAllTasks}
+              className="deleteAll"
+            >
+              <img className="deleteAll" src={trashIcon} alt="" />
+            </motion.button>
+          )}
         </AnimatePresence>
+
         <button className="add-task" onClick={newTask}>
-          <img
-            className="add-task"
-            src="/icons/plus-circle-svgrepo-com.svg"
-            alt=""
-          />
-        </button>
-        <button className="personalize" onClick={clickHandlerPersonalize}>
-          <img
-            className="add-task"
-            src="src/assets/icons/brush-svgrepo-com.svg"
-            alt=""
-          />
+          <img className="add-task" src={plusIcon} alt="" />
         </button>
       </main>
     </div>

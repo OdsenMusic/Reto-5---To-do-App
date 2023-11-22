@@ -2,7 +2,11 @@ import NavBarGroup from "../NavBarGroup";
 import NavBarMenuCard from "../NavBarMenuCard";
 import Logo from "../Logo";
 import style from "../NavBar/styles.module.css";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import plusIcon from "/icons/plus-circle-svgrepo-com.svg";
+import checkIcon from "/icons/checkmark-circle-svgrepo-com (1).svg";
+import trashIcon from "/icons/trash-svgrepo-com.svg";
+import taskIcon from "/icons/clipboard-svgrepo-com (1).svg";
 
 export default function NavBar({
   filterTasks,
@@ -10,7 +14,7 @@ export default function NavBar({
   groupList,
   setGroupList,
 }) {
-  const addNewGroup = async (prev) => {
+  const addNewGroup = async () => {
     try {
       const response = await fetch("http://localhost:3000/groups", {
         method: "POST",
@@ -34,18 +38,18 @@ export default function NavBar({
         <NavBarMenuCard
           filterTasks={filterTasks}
           text="Tareas"
-          icon="src/assets/icons/clipboard-svgrepo-com (1).svg"
+          icon={taskIcon}
         />
         <NavBarMenuCard
           filterTasks={filterTasks}
           text="Tareas finalizadas"
-          icon="src/assets/icons/checkmark-circle-svgrepo-com (1).svg"
+          icon={checkIcon}
         />
 
         <NavBarMenuCard
           filterTasks={filterTasks}
           text="Papelera"
-          icon="src/assets/icons/trash-svgrepo-com.svg"
+          icon={trashIcon}
         />
       </ul>
 
@@ -66,11 +70,7 @@ export default function NavBar({
         </AnimatePresence>
       </div>
       <button onClick={addNewGroup} className={style.addGroup}>
-        <img
-          className={style.addGroup}
-          src="/icons/plus-circle-svgrepo-com.svg"
-          alt=""
-        />
+        <img className={style.addGroup} src={plusIcon} alt="" />
         Crear grupo
       </button>
     </nav>

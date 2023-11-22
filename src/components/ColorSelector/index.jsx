@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles.module.css";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 function ColorSelector({ id, forceReload }) {
   const changeTaskColor = async (color) => {
@@ -8,7 +8,6 @@ function ColorSelector({ id, forceReload }) {
       color: color,
     };
 
-    console.log(color);
     try {
       const response = await fetch(`http://localhost:3000/todo/${id}`, {
         method: "PATCH",

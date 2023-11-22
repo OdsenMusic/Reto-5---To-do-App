@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import style from "../NavBarGroup/styles.module.css";
+import colorIcon from "../../assets/icons/color-swatch-svgrepo-com.svg";
+import crossIcon from "../../assets/icons/cross-circle-svgrepo-com.svg";
 
 export default function NavBarGroup({
   id,
@@ -60,18 +62,10 @@ export default function NavBarGroup({
       onClick={() => filterTasks(name)}
     >
       <button className={style.deleteGroupButton} onClick={deleteGroup}>
-        <img
-          className={style.deleteGroupImg}
-          src="src/assets/icons/cross-circle-svgrepo-com.svg"
-          alt=""
-        />
+        <img className={style.deleteGroupImg} src={colorIcon} alt="" />
       </button>
       <button onClick={changeGroupColor} className={style.personalizeColor}>
-        <img
-          className={style.personalizeColor}
-          src="src/assets/icons/color-swatch-svgrepo-com.svg"
-          alt=""
-        />
+        <img className={style.personalizeColor} src={crossIcon} alt="" />
       </button>
       <textarea
         className={style.groupName}
