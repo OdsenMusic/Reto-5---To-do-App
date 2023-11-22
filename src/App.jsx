@@ -17,8 +17,8 @@ const App = () => {
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
-    getTasks();
-    getGroups();
+    getData("todo", setTaskList);
+    getData("groups", setGroupList);
   }, [reload]);
 
   useEffect(() => {
@@ -46,31 +46,19 @@ const App = () => {
   const forceReload = () => setReload(!reload);
   const filterTasks = (filter) => setTaskFilter(filter);
 
-  const getTasks = async () => {
+  const getData = async (route, stateSetter) => {
     try {
-      const response = await fetch("http://localhost:3000/todo");
+      const response = await fetch(`http://localhost:3000/${route}`);
       if (response.ok) {
         const json = await response.json();
-        setTaskList(json);
+        stateSetter(json);
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const getGroups = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/groups");
-      if (response.ok) {
-        const json = await response.json();
-        setGroupList(json);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const newTask = async (prev) => {
+  const newTask = async () => {
     try {
       const response = await fetch("http://localhost:3000/todo", {
         method: "POST",
@@ -122,7 +110,7 @@ const App = () => {
         {editMode && <TaskModificationPopup toggleEditMode={toggleEditMode} />}
         <h1 className="viewportGroupName">{taskFilter}</h1>
         <div className="searchBar">
-          <img src={searchIcon} alt="" />
+          <img src={searchIcon} alt="Icono de búsqueda" />
           <input className="searchInput" type="text" placeholder="Buscar" />
         </div>
 
@@ -159,13 +147,17 @@ const App = () => {
               onClick={deleteAllTasks}
               className="deleteAll"
             >
-              <img className="deleteAll" src={trashIcon} alt="" />
+              <img
+                className="deleteAll"
+                src={trashIcon}
+                alt="Icono de eliminar todo"
+              />
             </motion.button>
           )}
         </AnimatePresence>
 
         <button className="add-task" onClick={newTask}>
-          <img className="add-task" src={plusIcon} alt="" />
+          <img className="add-task" src={plusIcon} alt="Icono de crear tarea" />
         </button>
       </main>
     </div>
