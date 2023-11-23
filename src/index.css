@@ -122,7 +122,8 @@ main {
   font-weight: 200;
   align-self: flex-end;
   position: absolute;
-  left: 255px;
+  left: 250px;
+  text-align: center;
 }
 
 ul {

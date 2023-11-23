@@ -107,31 +107,25 @@ div.groupFrame.purple {
 }
 
 div.groupFrame.white:hover {
-  backdrop-filter: blur(50px);
   border: 2px solid rgba(230, 230, 230, 0.785);
 }
 
 div.groupFrame.green:hover {
-  backdrop-filter: blur(50px);
   border: 2px solid rgba(194, 232, 144, 0.785);
 }
 
 div.groupFrame.yellow:hover {
-  backdrop-filter: blur(50px);
   border: 2px solid rgba(211, 195, 131, 0.749);
 }
 
 div.groupFrame.blue:hover {
-  backdrop-filter: blur(50px);
   border: 2px solid rgba(162, 188, 227, 0.785);
 }
 
 div.groupFrame.orange:hover {
-  backdrop-filter: blur(50px);
   border: 2px solid rgba(223, 184, 138, 0.785);
 }
 
 div.groupFrame.purple:hover {
-  backdrop-filter: blur(50px);
   border: 2px solid rgba(187, 164, 227, 0.785);
 }

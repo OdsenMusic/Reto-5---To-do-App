@@ -12,8 +12,6 @@ article {
 
   border-radius: 15px;
 
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   box-shadow: var(--article-boxshadow);
   transition: 0.3s;
 }
