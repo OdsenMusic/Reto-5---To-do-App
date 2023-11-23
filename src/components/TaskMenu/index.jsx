@@ -1,4 +1,5 @@
 import React from "react";
+import { deleteTask } from "../../utils/apifunctions";
 import style from "./styles.module.css";
 import recoverIcon from "../../assets/icons/reply-svgrepo-com.svg";
 import brushIcon from "../../assets/icons/brush-svgrepo-com.svg";
@@ -15,43 +16,13 @@ function TaskMenu({
   changeTaskAttribute,
   deleted,
 }) {
-  const deleteTask = async () => {
-    try {
-      const response = await fetch(`http://localhost:3000/todo/${id}`, {
-        method: "DELETE",
-      });
-      if (response.ok) {
-        forceReload();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const toggleDeleted = async (deleted) => {
-    let payload = {
-      deleted: !deleted,
-    };
-
-    try {
-      const response = await fetch(`http://localhost:3000/todo/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      if (response.ok) {
-        forceReload();
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    changeTaskAttribute({ deleted: !deleted });
   };
 
   const handleDelete = () => {
     if (deleted) {
-      deleteTask();
+      deleteTask(id, forceReload);
     } else {
       toggleDeleted();
     }

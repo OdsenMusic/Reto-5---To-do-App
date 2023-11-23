@@ -2,28 +2,11 @@ import React from "react";
 import styles from "../GroupSelector/styles.module.css";
 import { motion } from "framer-motion";
 
-export default function GroupSelector({ id, groupList, group, forceReload }) {
-  const handleGroupChange = async (groupName) => {
-    let payload = {
-      group: groupName,
-    };
-
-    try {
-      const response = await fetch(`http://localhost:3000/todo/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      if (response.ok) {
-        forceReload();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+export default function GroupSelector({
+  groupList,
+  group,
+  changeTaskAttribute,
+}) {
   const getButtonStyle = (groupName) => {
     return group === groupName ? styles.assignedGroup : "";
   };
@@ -40,7 +23,7 @@ export default function GroupSelector({ id, groupList, group, forceReload }) {
         value="none"
         className={`${styles.groupSelectorButton} ${getButtonStyle("none")}`}
         onClick={() => {
-          handleGroupChange("none");
+          changeTaskAttribute({ group: "none" });
         }}
       >
         Ninguno
@@ -49,7 +32,7 @@ export default function GroupSelector({ id, groupList, group, forceReload }) {
         <button
           key={e.name}
           onClick={() => {
-            handleGroupChange(e.name);
+            changeTaskAttribute({ group: e.name });
           }}
           className={`${styles.groupSelectorButton} ${getButtonStyle(e.name)}`}
           value={e.name}

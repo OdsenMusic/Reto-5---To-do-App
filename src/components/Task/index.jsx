@@ -19,6 +19,10 @@ export default function Task({
 }) {
   const [colorSelectorVisibility, setColorSelectorVisibility] = useState(false);
   const [groupSelectorVisibility, setGrupSelectorVisibility] = useState(false);
+  const url = `http://localhost:3000/todo/${id}`;
+  const headers = {
+    "Content-Type": "application/json",
+  };
 
   useEffect(() => {
     if (groupSelectorVisibility) {
@@ -40,26 +44,24 @@ export default function Task({
     }
   }, [colorSelectorVisibility]);
 
-  const changeTaskAttribute = async (attribute, value) => {
-    const payload = { [attribute]: value };
+  const changeTaskAttribute = async (payload) => {
     try {
-      const response = await fetch(`http://localhost:3000/todo/${id}`, {
+      const response = await fetch(url, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify(payload),
       });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+
+      if (response.ok) {
+        forceReload();
       }
     } catch (error) {
-      console.error("Fetch error:", error);
+      console.error(error);
     }
   };
 
-  const handleTextChange = (event) => {
-    changeTaskAttribute("text", event.target.value);
-  };
-
+  const handleTextChange = (event) =>
+    changeTaskAttribute({ text: event.target.value });
   const handleColorSelectorVisibility = () => {
     setColorSelectorVisibility(!colorSelectorVisibility);
   };
@@ -86,7 +88,11 @@ export default function Task({
     >
       <AnimatePresence>
         {colorSelectorVisibility && (
-          <ColorSelector id={id} forceReload={forceReload} />
+          <ColorSelector
+            id={id}
+            forceReload={forceReload}
+            changeTaskAttribute={changeTaskAttribute}
+          />
         )}
         {groupSelectorVisibility && (
           <GroupSelector
