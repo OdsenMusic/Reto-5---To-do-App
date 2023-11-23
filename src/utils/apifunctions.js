@@ -1,4 +1,4 @@
-export const newTask = async () => {
+export const newTask = async (forceReload) => {
   try {
     const response = await fetch("http://localhost:3000/todo", {
       method: "POST",
@@ -6,9 +6,7 @@ export const newTask = async () => {
     });
     if (response.ok) {
       const json = await response.json();
-      setTaskList((prev) => {
-        return [...prev, json];
-      });
+      forceReload();
     }
   } catch (error) {
     console.log(error);
@@ -27,7 +25,7 @@ export const getData = async (route, stateSetter) => {
   }
 };
 
-export const deleteTask = async (id) => {
+export const deleteTask = async (id, forceReload) => {
   try {
     const response = await fetch(`http://localhost:3000/todo/${id}`, {
       method: "DELETE",
@@ -38,13 +36,4 @@ export const deleteTask = async (id) => {
   } catch (error) {
     console.log(error);
   }
-};
-
-export const deleteAllTasks = async () => {
-  let tasksToDelete = taskList.filter((task) => {
-    return task.deleted;
-  });
-  tasksToDelete.map((task) => {
-    deleteTask(task.id);
-  });
 };

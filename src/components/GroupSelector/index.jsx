@@ -2,15 +2,26 @@ import React from "react";
 import styles from "../GroupSelector/styles.module.css";
 import { motion } from "framer-motion";
 
-export default function GroupSelector({
-  groupList,
-  group,
-  changeTaskAttribute,
-  forceReload,
-}) {
-  const handleGroupChange = (event) => {
-    changeTaskAttribute("group", event.target.value);
-    forceReload();
+export default function GroupSelector({ id, groupList, group, forceReload }) {
+  const handleGroupChange = async (groupName) => {
+    let payload = {
+      group: groupName,
+    };
+
+    try {
+      const response = await fetch(`http://localhost:3000/todo/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (response.ok) {
+        forceReload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getButtonStyle = (groupName) => {
@@ -28,14 +39,18 @@ export default function GroupSelector({
       <button
         value="none"
         className={`${styles.groupSelectorButton} ${getButtonStyle("none")}`}
-        onClick={handleGroupChange}
+        onClick={() => {
+          handleGroupChange("none");
+        }}
       >
         Ninguno
       </button>
       {groupList.map((e) => (
         <button
           key={e.name}
-          onClick={handleGroupChange}
+          onClick={() => {
+            handleGroupChange(e.name);
+          }}
           className={`${styles.groupSelectorButton} ${getButtonStyle(e.name)}`}
           value={e.name}
         >

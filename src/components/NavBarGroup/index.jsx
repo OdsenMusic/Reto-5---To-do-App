@@ -11,14 +11,14 @@ export default function NavBarGroup({
   forceReload,
   filterTasks,
 }) {
-  const baseUrl = `http://localhost:3000/groups/${id}`;
+  const url = `http://localhost:3000/groups/${id}`;
   const headers = {
     "Content-Type": "application/json",
   };
 
   const updateGroup = async (payload) => {
     try {
-      const response = await fetch(baseUrl, {
+      const response = await fetch(url, {
         method: "PATCH",
         headers,
         body: JSON.stringify(payload),
@@ -32,7 +32,13 @@ export default function NavBarGroup({
     }
   };
 
-  const changeGroupName = (event) => updateGroup({ name: event.target.value });
+  const changeGroupName = (event) => {
+    if (event.target.value === "") {
+      return;
+    } else {
+      updateGroup({ name: event.target.value });
+    }
+  };
 
   const changeGroupColor = () => {
     const colors = ["white", "green", "yellow", "blue", "orange", "purple"];
@@ -42,7 +48,7 @@ export default function NavBarGroup({
 
   const deleteGroup = async () => {
     try {
-      const response = await fetch(baseUrl, { method: "DELETE" });
+      const response = await fetch(url, { method: "DELETE" });
       if (response.ok) {
         forceReload();
       }
@@ -62,15 +68,16 @@ export default function NavBarGroup({
       onClick={() => filterTasks(name)}
     >
       <button className={style.deleteGroupButton} onClick={deleteGroup}>
-        <img className={style.deleteGroupImg} src={colorIcon} alt="" />
+        <img className={style.deleteGroupImg} src={crossIcon} alt="" />
       </button>
       <button onClick={changeGroupColor} className={style.personalizeColor}>
-        <img className={style.personalizeColor} src={crossIcon} alt="" />
+        <img className={style.personalizeColor} src={colorIcon} alt="" />
       </button>
       <textarea
         className={style.groupName}
         defaultValue={name}
         onBlur={changeGroupName}
+        placeholder="Nuevo grupo"
         maxLength="13"
       ></textarea>
     </motion.div>

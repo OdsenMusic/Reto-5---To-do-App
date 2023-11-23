@@ -28,18 +28,33 @@ function TaskMenu({
     }
   };
 
+  const toggleDeleted = async (deleted) => {
+    let payload = {
+      deleted: !deleted,
+    };
+
+    try {
+      const response = await fetch(`http://localhost:3000/todo/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (response.ok) {
+        forceReload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleDelete = () => {
     if (deleted) {
       deleteTask();
     } else {
-      changeTaskAttribute("deleted", true);
-      forceReload();
+      toggleDeleted();
     }
-  };
-
-  const handleRecover = () => {
-    changeTaskAttribute("deleted", false);
-    forceReload();
   };
 
   if (!deleted) {
@@ -70,7 +85,7 @@ function TaskMenu({
   } else {
     return (
       <div className={style.taskMenuContainer}>
-        <button onClick={handleRecover} className="taskBarMenuButton">
+        <button onClick={toggleDeleted} className="taskBarMenuButton">
           <img className={style.icon} src={recoverIcon} alt="" />
         </button>
         <button className="taskBarMenuButton" key={key} onClick={handleDelete}>

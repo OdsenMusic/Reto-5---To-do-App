@@ -32,8 +32,8 @@ textarea {
 
 .deleteGroupButton {
   position: absolute;
-  top: 2%;
-  left: 2%;
+  top: 1%;
+  left: 1%;
   opacity: 0;
   transition: opacity 0.3s 0.2s;
 }
@@ -44,14 +44,14 @@ textarea {
 
 button.personalizeColor {
   position: absolute;
-  bottom: 2%;
-  right: 2%;
+  top: 1%;
+  right: 1%;
   opacity: 0;
   transition: opacity 0.3s 0.2s;
 }
 
 img.personalizeColor {
-  width: 15px;
+  width: 13px;
 }
 
 .personalizeColor:hover {
