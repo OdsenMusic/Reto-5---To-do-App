@@ -111,6 +111,7 @@ export default function Task({
           defaultValue={text}
           onBlur={handleTextChange}
           className={style.taskText}
+          maxLength={47}
         />
         <TaskMenu
           id={id}

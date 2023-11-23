@@ -87,6 +87,7 @@ textarea.taskText {
   width: 80%;
   font-weight: 800;
   padding-top: 5px;
+  word-break: break-all;
 }
 
 .taskWrapper {

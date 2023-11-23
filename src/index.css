@@ -2,15 +2,12 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-
   --counter-color: rgb(155, 155, 155);
-
   --primary-color: #f5f5f5;
   --secondary-color: rgb(68, 68, 68);
   --white-card-color: rgba(247, 247, 247, 0.805);
@@ -21,14 +18,12 @@
   --blue: rgba(179, 208, 251, 0.785);
   --orange: rgba(255, 210, 156, 0.785);
   --purple: rgba(205, 179, 251, 0.785);
-
   --background-red: rgb(250, 226, 226);
   --background-green: #f1fee7;
   --background-yellow: rgb(247, 243, 224);
   --background-blue: rgb(227, 238, 253);
   --background-orange: #f7eee1;
   --background-purple: #f2e6fd;
-
   --article-boxshadow: 4px 4px 30px 0px rgba(0, 0, 0, 0.167);
   --group-boxshadow: 0 0 16px 0 rgba(0, 0, 0, 0.107);
   --viewportGroupNameColor: rgba(0, 0, 0, 0.137);
@@ -36,7 +31,6 @@
 
 .darkMode {
   --counter-color: #f5f5f5;
-
   --primary-color: rgb(84, 84, 84);
   --secondary-color: #f5f5f5;
   --white-card-color: rgba(150, 149, 149, 0.401);
@@ -47,14 +41,12 @@
   --blue: rgba(114, 129, 150, 0.785);
   --orange: rgba(148, 137, 123, 0.785);
   --purple: rgba(165, 156, 178, 0.785);
-
   --background-red: rgb(80, 59, 59);
   --background-green: #47533b;
   --background-yellow: rgb(83, 79, 56);
   --background-blue: rgb(58, 71, 89);
   --background-orange: #5e503f;
   --background-purple: #40344b;
-
   --viewportGroupNameColor: rgba(231, 231, 231, 0.168);
 }
 
@@ -68,10 +60,8 @@
 .viewport {
   height: 100vh;
   width: 100vw;
-
   display: flex;
   background-color: var(--primary-color);
-
   overflow: hidden;
   transition: background-color 0.5s;
 }
@@ -115,12 +105,10 @@ div.viewport.darkmode {
   background-color: #3e3e3e;
 }
 
-/* Tarjetas */
-
 main {
   width: calc(100% - 300px);
   height: 100vh;
-  padding: 40px 40px;
+  padding: 40px;
   display: flex;
   flex-wrap: wrap;
   gap: 40px 50px;
@@ -145,46 +133,31 @@ ul {
 
 img {
   height: 20px;
-
   filter: var(--icon-color);
   user-select: none;
 }
 
-button.personalize {
-  position: fixed;
-  right: 20px;
-  top: 20px;
-
-  background-color: transparent;
-  border: 0;
-  opacity: 0;
-  transition: 0.3s;
-}
-
-/* -----------------------------HOVERS------------------------- */
-
-button.personalize:hover {
-  opacity: 1;
-}
-
-button.add-task {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-
-  background-color: transparent;
-  border: 0;
-  transition: 0.2s;
-}
-
+button.personalize,
+button.add-task,
 button.toggleDarkMode {
   position: fixed;
   right: 20px;
-  top: 20px;
-
   background-color: transparent;
   border: 0;
-  transition: 0.2s;
+  transition: 0.2s; /* Default for buttons */
+}
+
+button.personalize {
+  top: 20px;
+  opacity: 0;
+}
+
+button.add-task {
+  bottom: 20px;
+}
+
+button.toggleDarkMode {
+  top: 20px;
 }
 
 img.add-task {
@@ -204,11 +177,24 @@ button.deleteAll {
   justify-content: center;
 }
 
-/* -------------------Hovers------------------ */
+/* ========================== Hovers and Active =============================== */
+
+button.personalize:hover,
+button.add-task:hover,
+button.toggleDarkMode:hover {
+  opacity: 1;
+}
 
 button.add-task:hover {
   scale: 1.1;
 }
+
 button.add-task:active {
   scale: 0.9;
+}
+
+div.deleteAllContainer {
+  height: 80px;
+  display: flex;
+  align-items: center;
 }
