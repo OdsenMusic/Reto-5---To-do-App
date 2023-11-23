@@ -89,6 +89,7 @@ export default function Task({
       <AnimatePresence>
         {colorSelectorVisibility && (
           <ColorSelector
+            key={`${id} colorSelector`}
             id={id}
             forceReload={forceReload}
             changeTaskAttribute={changeTaskAttribute}
@@ -96,6 +97,7 @@ export default function Task({
         )}
         {groupSelectorVisibility && (
           <GroupSelector
+            key={`${id} groupSelector`}
             id={id}
             group={group}
             groupList={groupList}

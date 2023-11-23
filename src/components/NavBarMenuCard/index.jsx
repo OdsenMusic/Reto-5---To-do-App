@@ -1,6 +1,13 @@
 import React from "react";
 
-export default function NavBarMenuCard({ icon, text, filterTasks }) {
+export default function NavBarMenuCard({
+  icon,
+  text,
+  filterTasks,
+
+  filterMethod,
+  count,
+}) {
   function clickHandler(text) {
     switch (text) {
       case "Tareas":
@@ -22,7 +29,7 @@ export default function NavBarMenuCard({ icon, text, filterTasks }) {
       }}
     >
       <img src={icon} />
-      {text}
+      {text} <p className="counter">{count}</p>
     </section>
   );
 }

@@ -13,6 +13,7 @@ export default function NavBar({
   forceReload,
   groupList,
   setGroupList,
+  taskList,
 }) {
   const addNewGroup = async () => {
     try {
@@ -31,6 +32,10 @@ export default function NavBar({
     }
   };
 
+  const taskCounter = () => {
+    return taskList.filter((e) => e.done).length;
+  };
+
   return (
     <nav className={style}>
       <Logo />
@@ -39,17 +44,20 @@ export default function NavBar({
           filterTasks={filterTasks}
           text="Tareas"
           icon={taskIcon}
+          count={taskList.filter((e) => !e.done).length}
         />
         <NavBarMenuCard
           filterTasks={filterTasks}
           text="Tareas finalizadas"
           icon={checkIcon}
+          count={taskList.filter((e) => e.done).length}
         />
 
         <NavBarMenuCard
           filterTasks={filterTasks}
           text="Papelera"
           icon={trashIcon}
+          count={taskList.filter((e) => e.deleted).length}
         />
       </ul>
 
@@ -64,6 +72,7 @@ export default function NavBar({
                 forceReload={forceReload}
                 color={e.color}
                 filterTasks={filterTasks}
+                count={taskList.filter((t) => t.group === e.name).length}
               />
             );
           })}

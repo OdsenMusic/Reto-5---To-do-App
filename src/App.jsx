@@ -7,6 +7,7 @@ import "./index.css";
 import searchIcon from "./assets/icons/search-svgrepo-com (2).svg";
 import trashIcon from "./assets/icons/trash-svgrepo-com.svg";
 import plusIcon from "./assets/icons/plus-circle-svgrepo-com.svg";
+import moonIcon from "./assets/icons/moon-svgrepo-com.svg";
 import { getData, deleteTask, newTask } from "./utils/apifunctions.js";
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
   const [reload, setReload] = useState(false);
   const [taskFilter, setTaskFilter] = useState("");
   const [editMode, setEditMode] = useState(false);
+  const [theme, setTheme] = useState("");
 
   useEffect(() => {
     getData("todo", setTaskList);
@@ -45,7 +47,11 @@ const App = () => {
 
   const toggleEditMode = () => setEditMode(!editMode);
   const forceReload = () => setReload(!reload);
+
   const filterTasks = (filter) => setTaskFilter(filter);
+  const handleTheme = () => {
+    theme === "darkMode" ? setTheme("") : setTheme("darkMode");
+  };
   const deleteAllTasks = async () => {
     let tasksToDelete = taskList.filter((task) => {
       return task.deleted;
@@ -56,20 +62,17 @@ const App = () => {
   };
 
   return (
-    <div className={`viewport ${background}`}>
+    <div className={`viewport ${background} ${theme}`}>
       <NavBar
         filterTasks={filterTasks}
         groupList={groupList}
+        taskList={taskList}
         setGroupList={setGroupList}
         forceReload={forceReload}
       />
       <main>
         {editMode && <TaskModificationPopup toggleEditMode={toggleEditMode} />}
         <h1 className="viewportGroupName">{taskFilter}</h1>
-        <div className="searchBar">
-          <img src={searchIcon} alt="Icono de búsqueda" />
-          <input className="searchInput" type="text" placeholder="Buscar" />
-        </div>
 
         <AnimatePresence>
           {taskList &&
@@ -122,6 +125,13 @@ const App = () => {
           }}
         >
           <img className="add-task" src={plusIcon} alt="Icono de crear tarea" />
+        </button>
+        <button className="toggleDarkMode" onClick={handleTheme}>
+          <img
+            className="toggleDarkMode"
+            src={moonIcon}
+            alt="Icono de crear tarea"
+          />
         </button>
       </main>
     </div>

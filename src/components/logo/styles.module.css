@@ -6,9 +6,11 @@
   padding: 20px;
   font-size: 1.8rem;
   font-weight: 200;
+  user-select: none;
 }
 
 img {
   height: 20px;
   filter: contrast(0) brightness(1.2);
+  user-select: none;
 }

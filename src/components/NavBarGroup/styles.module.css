@@ -10,8 +10,20 @@
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
   border: 2px solid transparent;
-  box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.107);
+  box-shadow: var(--group-boxshadow);
   transition: background-color 0.3s;
+}
+
+.counter {
+  font-weight: 200;
+  align-self: flex-end;
+  position: absolute;
+  right: 4%;
+  bottom: 4%;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--counter-color);
+  user-select: none;
 }
 
 textarea {
@@ -71,27 +83,27 @@ div.groupFrame:hover > .personalizeColor {
 }
 
 div.groupFrame.white {
-  background-color: rgba(255, 255, 255, 0.785);
+  background-color: var(--white);
 }
 
 div.groupFrame.green {
-  background-color: rgba(212, 255, 156, 0.785);
+  background-color: var(--green);
 }
 
 div.groupFrame.yellow {
-  background-color: rgba(255, 235, 156, 0.749);
+  background-color: var(--yellow);
 }
 
 div.groupFrame.blue {
-  background-color: rgba(179, 208, 251, 0.785);
+  background-color: var(--blue);
 }
 
 div.groupFrame.orange {
-  background-color: rgba(255, 210, 156, 0.785);
+  background-color: var(--orange);
 }
 
 div.groupFrame.purple {
-  background-color: rgba(205, 179, 251, 0.785);
+  background-color: var(--purple);
 }
 
 div.groupFrame.white:hover {

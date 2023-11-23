@@ -10,6 +10,7 @@ export default function NavBarGroup({
   color,
   forceReload,
   filterTasks,
+  count,
 }) {
   const url = `http://localhost:3000/groups/${id}`;
   const headers = {
@@ -79,7 +80,10 @@ export default function NavBarGroup({
         onBlur={changeGroupName}
         placeholder="Nuevo grupo"
         maxLength="13"
-      ></textarea>
+      >
+        {}
+      </textarea>
+      <p className={style.counter}>{count}</p>
     </motion.div>
   );
 }
